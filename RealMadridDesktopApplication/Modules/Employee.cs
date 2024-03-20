@@ -8,30 +8,31 @@ namespace RealMadridDesktopApplication.Modules
 {
     public class Employee : PersonalDetails
     {
-        private int roleAccessModifier;
+        public int RoleAccessModifier { get; set; }
         private string login;
         private string password;
-        public Employee(string roleAccessModifier, string login, string password) : base("", "", "", "", "")
+        public Employee(AccessModifier roleAccessModifier, string login, string password) : base("", "", "", "", "")
         {
+            // Вообще эту конструкцию я бы по-другому немого селал, потому что передвать строчку не совсем круто,
+            // а вот перердавать enum было бы лучше, потому что теперь есть определенная выборка.
             switch (roleAccessModifier)
             {
-                case "Admin":
-                    this.roleAccessModifier = (int)AccessModifier.Admin;
+                case AccessModifier.Admin:
+                    RoleAccessModifier = (int)AccessModifier.Admin;
                     break;
-                case "Coach":
-                    this.roleAccessModifier = (int)AccessModifier.Coach;
+                default:
+                case AccessModifier.Coach:
+                    RoleAccessModifier = (int)AccessModifier.Coach;
                     break;
             }
+
             this.login = login;
             this.password = password;
         }
 
         //Getters and Setters
-        public int RoleAccessModifier
-        {
-            get { return roleAccessModifier; }
-            set { roleAccessModifier = value; }
-        }
+        
+        // Можно и так, но я сделал одно поле по-другому.
         public string Login
         {
             get { return login; }
@@ -44,8 +45,9 @@ namespace RealMadridDesktopApplication.Modules
         }
     }
 
-    enum AccessModifier
+    public enum AccessModifier
     {
+        // Зачем счет?
         Admin = 1,
         Coach = 2
     }
