@@ -1,3 +1,5 @@
+using RealMadridDesktopApplication.Forms;
+
 namespace RealMadridDesktopApplication
 {
     internal static class Program
@@ -11,7 +13,9 @@ namespace RealMadridDesktopApplication
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new LoginPage());
+            MainPage mainPage = new MainPage();
+            //LoginPage loginPage = new LoginPage();
+            Application.Run(mainPage);
         }
     }
 }

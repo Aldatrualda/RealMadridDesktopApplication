@@ -36,8 +36,9 @@
             textBoxPassword = new TextBox();
             buttonLogin = new Button();
             buttonClear = new Button();
-            pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pictureBoxLogo = new PictureBox();
+            checkBoxShow = new CheckBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
             SuspendLayout();
             // 
             // labelLogin
@@ -62,11 +63,11 @@
             // 
             labelWelcoming.AutoSize = true;
             labelWelcoming.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            labelWelcoming.Location = new Point(208, 149);
+            labelWelcoming.Location = new Point(212, 149);
             labelWelcoming.Name = "labelWelcoming";
-            labelWelcoming.Size = new Size(555, 35);
+            labelWelcoming.Size = new Size(547, 35);
             labelWelcoming.TabIndex = 2;
-            labelWelcoming.Text = "Welcome to Real Madrind Foundation!";
+            labelWelcoming.Text = "Welcome to Real Madrind Foundation";
             // 
             // textBoxLogin
             // 
@@ -103,15 +104,27 @@
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.Click += buttonClear_Click;
             // 
-            // pictureBox1
+            // pictureBoxLogo
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(166, 172);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 7;
-            pictureBox1.TabStop = false;
+            pictureBoxLogo.Image = (Image)resources.GetObject("pictureBoxLogo.Image");
+            pictureBoxLogo.Location = new Point(12, 12);
+            pictureBoxLogo.Name = "pictureBoxLogo";
+            pictureBoxLogo.Size = new Size(166, 172);
+            pictureBoxLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxLogo.TabIndex = 7;
+            pictureBoxLogo.TabStop = false;
+            // 
+            // checkBoxShow
+            // 
+            checkBoxShow.AutoSize = true;
+            checkBoxShow.Font = new Font("Arial", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            checkBoxShow.Location = new Point(637, 297);
+            checkBoxShow.Name = "checkBoxShow";
+            checkBoxShow.Size = new Size(62, 20);
+            checkBoxShow.TabIndex = 8;
+            checkBoxShow.Text = "show";
+            checkBoxShow.UseVisualStyleBackColor = true;
+            checkBoxShow.CheckedChanged += checkBoxShow_CheckedChanged;
             // 
             // LoginPage
             // 
@@ -119,7 +132,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(882, 503);
-            Controls.Add(pictureBox1);
+            Controls.Add(checkBoxShow);
+            Controls.Add(pictureBoxLogo);
             Controls.Add(buttonClear);
             Controls.Add(buttonLogin);
             Controls.Add(textBoxPassword);
@@ -131,7 +145,7 @@
             Margin = new Padding(5, 4, 5, 4);
             Name = "LoginPage";
             Text = "Login";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -145,6 +159,7 @@
         private TextBox textBoxPassword;
         private Button buttonLogin;
         private Button buttonClear;
-        private PictureBox pictureBox1;
+        private PictureBox pictureBoxLogo;
+        private CheckBox checkBoxShow;
     }
 }

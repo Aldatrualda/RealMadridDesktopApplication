@@ -19,7 +19,7 @@ namespace RealMadridDesktopApplication.Modules
         }
 
         //Getters and Setters
-        public string nationality
+        public string Nationality
         {
             get { return natinality; }
             set { natinality = value; }

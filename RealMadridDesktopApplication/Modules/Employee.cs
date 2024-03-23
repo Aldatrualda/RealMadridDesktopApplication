@@ -13,8 +13,6 @@ namespace RealMadridDesktopApplication.Modules
         private string password;
         public Employee(AccessModifier roleAccessModifier, string login, string password) : base("", "", "", "", "")
         {
-            // Вообще эту конструкцию я бы по-другому немого селал, потому что передвать строчку не совсем круто,
-            // а вот перердавать enum было бы лучше, потому что теперь есть определенная выборка.
             switch (roleAccessModifier)
             {
                 case AccessModifier.Admin:
@@ -31,8 +29,6 @@ namespace RealMadridDesktopApplication.Modules
         }
 
         //Getters and Setters
-        
-        // Можно и так, но я сделал одно поле по-другому.
         public string Login
         {
             get { return login; }
@@ -47,7 +43,6 @@ namespace RealMadridDesktopApplication.Modules
 
     public enum AccessModifier
     {
-        // Зачем счет?
         Admin = 1,
         Coach = 2
     }
