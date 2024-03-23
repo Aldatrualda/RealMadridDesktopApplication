@@ -22,16 +22,10 @@ namespace RealMadridDesktopApplication.Forms
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Parent parent = CreateParent();
-            using (NpgsqlConnection connection = GetConnection())
+            using (NpgsqlConnection connection = new NpgsqlConnection(AddPlayerPage.ConnectionString))
             {
                 connection.Open();
-
             }
-        }
-
-        private NpgsqlConnection GetConnection()
-        {
-            return new NpgsqlConnection("Host=localhost;Port=5432;Database=RealMadridDB;Username=postgres;Password=123456");
         }
 
         private Parent CreateParent()
@@ -45,7 +39,8 @@ namespace RealMadridDesktopApplication.Forms
 
         private void InsertDataIntoParentOfPlayer(Parent parent, NpgsqlConnection connection)
         {
-            string insertQuery = "INSERT INTO parent_of_player(name, surname, phone_number) VALUES ( '" + parent.Name + "', '" + parent.Surname + "', '" + parent.PhoneNumber + "')";
+            string insertQuery = "INSERT INTO parent_of_player(name, surname, phone_number) " +
+                                 "VALUES ( '" + parent.Name + "', '" + parent.Surname + "', '" + parent.PhoneNumber + "')";
             using (NpgsqlCommand command = new NpgsqlCommand())
             {
 
