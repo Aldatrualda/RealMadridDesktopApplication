@@ -55,7 +55,8 @@ namespace RealMadridDesktopApplication.Forms
 
         private void InsertDataIntoPlayerOfRealMadrid(NpgsqlConnection connection, Player player)
         {
-            string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location) VALUES(" + SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
+            string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
+                " VALUES(" + SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
