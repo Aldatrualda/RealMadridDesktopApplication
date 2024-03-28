@@ -15,7 +15,6 @@ namespace RealMadridDesktopApplication.Forms
 {
     public partial class AddPlayerPage : Form
     {
-        public static string ConnectionString = "Host=localhost;Port=5432;Database=RealMadridDB;Username=postgres;Password=123456";
         public AddPlayerPage()
         {
             InitializeComponent();
@@ -24,29 +23,13 @@ namespace RealMadridDesktopApplication.Forms
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Player player = CreatePlayer();
-            try
-            {
-                using (NpgsqlConnection connection = new NpgsqlConnection(ConnectionString))
-                {
-                    connection.Open();
-                    InsertDataIntoPersonalDetails(connection, player);
-                    InsertDataIntoPlayerOfRealMadrid(connection, player);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                ClearTextBoxes();
-            }
+            InsertDateToDatabase(player);
         }
 
         private void InsertDataIntoPersonalDetails(NpgsqlConnection connection, Player player)
         {
             string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
-                "VALUES('" + player.Name + "', '" + player.Surname + "', '" + player.AdditionalName + "', '" + player.Birthday + "', '" + player.PhoneNumber + "')";
+                "VALUES ('" + player.Name + "', '" + player.Surname + "', '" + player.AdditionalName + "', '" + player.Birthday + "', '" + player.PhoneNumber + "')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -56,16 +39,11 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoPlayerOfRealMadrid(NpgsqlConnection connection, Player player)
         {
             string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
-                " VALUES(" + SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
+                " VALUES (" + SQLConnection.SQLConnection.SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
             }
-        }
-
-        private string SelectPersonalPlayerIdFromPersonalDetails()
-        {
-            return "(SELECT personal_details_id FROM personal_details ORDER BY personal_details_id DESC LIMIT 1)";
         }
 
         private Player CreatePlayer()
@@ -87,6 +65,28 @@ namespace RealMadridDesktopApplication.Forms
             textBoxAdditionalName.Clear();
             textBoxPhoneNumber.Clear();
             textBoxAddress.Clear();
+        }
+
+        private void InsertDateToDatabase(Player player)
+        {
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLConnection.ConnectionToSQL))
+                {
+                    connection.Open();
+                    InsertDataIntoPersonalDetails(connection, player);
+                    InsertDataIntoPlayerOfRealMadrid(connection, player);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                ClearTextBoxes();
+                new AddParentPage().Show();
+            }
         }
 
         private void buttonBack_Click(object sender, EventArgs e)

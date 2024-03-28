@@ -23,6 +23,12 @@ namespace RealMadridDesktopApplication.Forms
         {
             AddPlayerPage addPlayerPage = new AddPlayerPage();
             addPlayerPage.Show();
-        }  
+        }
+
+        private void buttonAddEmployee_Click(object sender, EventArgs e)
+        {
+            AddEmployeePage addEmployeePage = new AddEmployeePage();
+            addEmployeePage.Show();
+        }
     }
 }

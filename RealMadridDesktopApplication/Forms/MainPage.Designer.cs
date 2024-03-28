@@ -75,6 +75,7 @@
             buttonAddEmployee.TabIndex = 4;
             buttonAddEmployee.Text = "Add employee";
             buttonAddEmployee.UseVisualStyleBackColor = true;
+            buttonAddEmployee.Click += buttonAddEmployee_Click;
             // 
             // buttonShowEmployees
             // 

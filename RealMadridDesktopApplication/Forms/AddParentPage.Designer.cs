@@ -39,6 +39,7 @@
             textBoxPhoneNumber = new TextBox();
             buttonNext = new Button();
             buttonBack = new Button();
+            labelRequired = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -58,36 +59,36 @@
             labelAddParent.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point);
             labelAddParent.Location = new Point(191, 149);
             labelAddParent.Name = "labelAddParent";
-            labelAddParent.Size = new Size(182, 35);
+            labelAddParent.Size = new Size(184, 35);
             labelAddParent.TabIndex = 1;
-            labelAddParent.Text = "Add parent:";
+            labelAddParent.Text = "Add Parent:";
             // 
             // labelName
             // 
             labelName.AutoSize = true;
             labelName.Location = new Point(12, 225);
             labelName.Name = "labelName";
-            labelName.Size = new Size(70, 24);
+            labelName.Size = new Size(78, 24);
             labelName.TabIndex = 2;
-            labelName.Text = "Name:";
+            labelName.Text = "Name:*";
             // 
             // labelSurname
             // 
             labelSurname.AutoSize = true;
             labelSurname.Location = new Point(12, 275);
             labelSurname.Name = "labelSurname";
-            labelSurname.Size = new Size(101, 24);
+            labelSurname.Size = new Size(109, 24);
             labelSurname.TabIndex = 3;
-            labelSurname.Text = "Surname:";
+            labelSurname.Text = "Surname:*";
             // 
             // labelPhoneNumber
             // 
             labelPhoneNumber.AutoSize = true;
             labelPhoneNumber.Location = new Point(12, 325);
             labelPhoneNumber.Name = "labelPhoneNumber";
-            labelPhoneNumber.Size = new Size(155, 24);
+            labelPhoneNumber.Size = new Size(165, 24);
             labelPhoneNumber.TabIndex = 4;
-            labelPhoneNumber.Text = "Phone number:";
+            labelPhoneNumber.Text = "Phone Number:*";
             // 
             // textBoxName
             // 
@@ -129,12 +130,23 @@
             buttonBack.Text = "Back";
             buttonBack.UseVisualStyleBackColor = true;
             // 
+            // labelRequired
+            // 
+            labelRequired.AutoSize = true;
+            labelRequired.Font = new Font("Arial", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            labelRequired.Location = new Point(12, 420);
+            labelRequired.Name = "labelRequired";
+            labelRequired.Size = new Size(122, 16);
+            labelRequired.TabIndex = 10;
+            labelRequired.Text = "* is required fields";
+            // 
             // AddParentPage
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(882, 503);
+            Controls.Add(labelRequired);
             Controls.Add(buttonBack);
             Controls.Add(buttonNext);
             Controls.Add(textBoxPhoneNumber);
@@ -166,5 +178,6 @@
         private TextBox textBoxPhoneNumber;
         private Button buttonNext;
         private Button buttonBack;
+        private Label labelRequired;
     }
 }

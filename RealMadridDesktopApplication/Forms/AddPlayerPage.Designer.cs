@@ -49,6 +49,7 @@
             buttonBack = new Button();
             comboBoxLocation = new ComboBox();
             comboBoxNationality = new ComboBox();
+            labelRequired = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -77,18 +78,18 @@
             labelName.AutoSize = true;
             labelName.Location = new Point(12, 225);
             labelName.Name = "labelName";
-            labelName.Size = new Size(70, 24);
+            labelName.Size = new Size(78, 24);
             labelName.TabIndex = 2;
-            labelName.Text = "Name:";
+            labelName.Text = "Name:*";
             // 
             // labelSurname
             // 
             labelSurname.AutoSize = true;
             labelSurname.Location = new Point(12, 275);
             labelSurname.Name = "labelSurname";
-            labelSurname.Size = new Size(101, 24);
+            labelSurname.Size = new Size(109, 24);
             labelSurname.TabIndex = 3;
-            labelSurname.Text = "Surname:";
+            labelSurname.Text = "Surname:*";
             // 
             // labelAdditionalName
             // 
@@ -141,9 +142,9 @@
             labelLocation.AutoSize = true;
             labelLocation.Location = new Point(463, 375);
             labelLocation.Name = "labelLocation";
-            labelLocation.Size = new Size(99, 24);
+            labelLocation.Size = new Size(107, 24);
             labelLocation.TabIndex = 9;
-            labelLocation.Text = "Location:";
+            labelLocation.Text = "Location:*";
             // 
             // textBoxName
             // 
@@ -227,12 +228,23 @@
             comboBoxNationality.Size = new Size(237, 32);
             comboBoxNationality.TabIndex = 22;
             // 
+            // labelRequired
+            // 
+            labelRequired.AutoSize = true;
+            labelRequired.Font = new Font("Arial", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            labelRequired.Location = new Point(12, 420);
+            labelRequired.Name = "labelRequired";
+            labelRequired.Size = new Size(122, 16);
+            labelRequired.TabIndex = 23;
+            labelRequired.Text = "* is required fields";
+            // 
             // AddPlayerPage
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(882, 503);
+            Controls.Add(labelRequired);
             Controls.Add(comboBoxNationality);
             Controls.Add(comboBoxLocation);
             Controls.Add(buttonBack);
@@ -284,5 +296,6 @@
         private Button buttonBack;
         private ComboBox comboBoxLocation;
         private ComboBox comboBoxNationality;
+        private Label labelRequired;
     }
 }

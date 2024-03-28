@@ -14,7 +14,6 @@ namespace RealMadridDesktopApplication
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             MainPage mainPage = new MainPage();
-            //LoginPage loginPage = new LoginPage();
             Application.Run(mainPage);
         }
     }
