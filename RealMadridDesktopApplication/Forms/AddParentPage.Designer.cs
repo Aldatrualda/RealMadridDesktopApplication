@@ -129,6 +129,7 @@
             buttonBack.TabIndex = 9;
             buttonBack.Text = "Back";
             buttonBack.UseVisualStyleBackColor = true;
+            buttonBack.Click += buttonBack_Click;
             // 
             // labelRequired
             // 

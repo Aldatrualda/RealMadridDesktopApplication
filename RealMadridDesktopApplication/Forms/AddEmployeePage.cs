@@ -24,7 +24,12 @@ namespace RealMadridDesktopApplication.Forms
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Employee employee = createEmployee();
-            insertDataToDatabase(employee);
+            bool empltyBoxes = checkIfRequiredBoxesAreEmpty();
+
+            if (!empltyBoxes)
+            {
+                insertDataToDatabase(employee);
+            }
         }
 
         private Employee createEmployee()
@@ -62,9 +67,25 @@ namespace RealMadridDesktopApplication.Forms
             return "password";
         }
 
-        private NpgsqlConnection GetConnection()
+        private void insertDataToDatabase(Employee employee)
         {
-            return new NpgsqlConnection(SQLConnection.SQLConnection.ConnectionToSQL);
+            try
+            {
+                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLConnection.ConnectionToSQL))
+                {
+                    connection.Open();
+                    insertDataIntoPersonalDetails(employee, connection);
+                    insertDataIntoEmployeeOfRealMadrid(employee, connection);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                ClearTextBoxes();
+            }
         }
 
         private void insertDataIntoPersonalDetails(Employee employee, NpgsqlConnection connection)
@@ -88,32 +109,31 @@ namespace RealMadridDesktopApplication.Forms
             }
         }
 
-        private void insertDataToDatabase(Employee employee)
-        {
-            try
-            {
-                using (NpgsqlConnection connection = GetConnection())
-                {
-                    connection.Open();
-                    insertDataIntoPersonalDetails(employee, connection);
-                    insertDataIntoEmployeeOfRealMadrid(employee, connection);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                ClearTextBoxes();
-            }
-        }
-
         private void ClearTextBoxes()
         {
             textBoxName.Clear();
             textBoxSurname.Clear();
             textBoxAdditionalName.Clear();
+        }
+
+        private bool checkIfRequiredBoxesAreEmpty()
+        {
+            bool textBoxNameIsEmpty = string.IsNullOrEmpty(textBoxName.Text);
+            bool textBoxSurnameIsEmpty = string.IsNullOrEmpty(textBoxSurname.Text);
+            bool textBoxPhoneNumberIsEmpty = string.IsNullOrEmpty(textBoxPhoneNumber.Text);
+            bool comboBoxRoleIsEmpty = string.IsNullOrEmpty(comboBoxRole.Text);
+            bool emptyBoxes = textBoxNameIsEmpty || textBoxSurnameIsEmpty || textBoxPhoneNumberIsEmpty || comboBoxRoleIsEmpty;
+
+            if (emptyBoxes)
+            {
+                MessageBox.Show("Name, Surname, Phone Number, and Role are required", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return emptyBoxes;
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

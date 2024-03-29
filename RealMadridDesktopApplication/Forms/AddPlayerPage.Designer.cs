@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddPlayerPage));
             pictureBox1 = new PictureBox();
             labelAddPlayer = new Label();
@@ -50,7 +51,9 @@
             comboBoxLocation = new ComboBox();
             comboBoxNationality = new ComboBox();
             labelRequired = new Label();
+            errorProviderName = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProviderName).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -238,6 +241,11 @@
             labelRequired.TabIndex = 23;
             labelRequired.Text = "* is required fields";
             // 
+            // errorProviderName
+            // 
+            errorProviderName.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            errorProviderName.ContainerControl = this;
+            // 
             // AddPlayerPage
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
@@ -270,6 +278,7 @@
             Name = "AddPlayerPage";
             Text = "Add Player Page";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProviderName).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -297,5 +306,6 @@
         private ComboBox comboBoxLocation;
         private ComboBox comboBoxNationality;
         private Label labelRequired;
+        private ErrorProvider errorProviderName;
     }
 }

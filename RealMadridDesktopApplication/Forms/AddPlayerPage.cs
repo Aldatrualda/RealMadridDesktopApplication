@@ -23,26 +23,11 @@ namespace RealMadridDesktopApplication.Forms
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Player player = CreatePlayer();
-            InsertDateToDatabase(player);
-        }
+            bool emptyBoxes = checkIfRequiredBoxesAreEmpty();
 
-        private void InsertDataIntoPersonalDetails(NpgsqlConnection connection, Player player)
-        {
-            string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
-                "VALUES ('" + player.Name + "', '" + player.Surname + "', '" + player.AdditionalName + "', '" + player.Birthday + "', '" + player.PhoneNumber + "')";
-            using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
+            if (!(emptyBoxes))
             {
-                int rowsAffected = command.ExecuteNonQuery();
-            }
-        }
-
-        private void InsertDataIntoPlayerOfRealMadrid(NpgsqlConnection connection, Player player)
-        {
-            string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
-                " VALUES (" + SQLConnection.SQLConnection.SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
-            using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
-            {
-                int rowsAffected = command.ExecuteNonQuery();
+                InsertDateToDatabase(player);
             }
         }
 
@@ -56,15 +41,6 @@ namespace RealMadridDesktopApplication.Forms
             player.Birthday = birthdayBuffer[2] + "-" + birthdayBuffer[1] + "-" + birthdayBuffer[0];
             player.PhoneNumber = textBoxPhoneNumber.Text;
             return player;
-        }
-
-        private void ClearTextBoxes()
-        {
-            textBoxName.Clear();
-            textBoxSurname.Clear();
-            textBoxAdditionalName.Clear();
-            textBoxPhoneNumber.Clear();
-            textBoxAddress.Clear();
         }
 
         private void InsertDateToDatabase(Player player)
@@ -89,9 +65,52 @@ namespace RealMadridDesktopApplication.Forms
             }
         }
 
+        private void InsertDataIntoPersonalDetails(NpgsqlConnection connection, Player player)
+        {
+            string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
+                "VALUES ('" + player.Name + "', '" + player.Surname + "', '" + player.AdditionalName + "', '" + player.Birthday + "', '" + player.PhoneNumber + "')";
+            using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
+            {
+                int rowsAffected = command.ExecuteNonQuery();
+            }
+        }
+
+        private void InsertDataIntoPlayerOfRealMadrid(NpgsqlConnection connection, Player player)
+        {
+            string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
+                " VALUES (" + SQLConnection.SQLConnection.SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
+            using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
+            {
+                int rowsAffected = command.ExecuteNonQuery();
+            }
+        }
+
+        private void ClearTextBoxes()
+        {
+            textBoxName.Clear();
+            textBoxSurname.Clear();
+            textBoxAdditionalName.Clear();
+            textBoxPhoneNumber.Clear();
+            textBoxAddress.Clear();
+        }
+
+        private bool checkIfRequiredBoxesAreEmpty()
+        {
+            bool textBoxNameIsEmpty = string.IsNullOrEmpty(textBoxName.Text);
+            bool textBoxSurnameIsEmpty = string.IsNullOrEmpty(textBoxSurname.Text);
+            bool comboBoxLocationIsEmpty = string.IsNullOrEmpty(comboBoxLocation.Text);
+            bool emptyBoxes = textBoxNameIsEmpty || textBoxSurnameIsEmpty || comboBoxLocationIsEmpty;
+
+            if (emptyBoxes)
+            {
+                MessageBox.Show("Name, Surname, and Location are required", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return emptyBoxes;
+        }
+
         private void buttonBack_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
     }
 }

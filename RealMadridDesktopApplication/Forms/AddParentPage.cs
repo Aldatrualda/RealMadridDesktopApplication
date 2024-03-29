@@ -23,7 +23,12 @@ namespace RealMadridDesktopApplication.Forms
         private void buttonNext_Click(object sender, EventArgs e)
         {
             Parent parent = CreateParent();
-            InsertDataIntoDataBase(parent);
+            bool emptyBoxes = checkIfRequiredBoxesAreEmpty();
+
+            if (!(emptyBoxes))
+            {
+                InsertDataIntoDataBase(parent);
+            }
         }
 
         private Parent CreateParent()
@@ -63,6 +68,25 @@ namespace RealMadridDesktopApplication.Forms
             {
                 int rowsAffected = command.ExecuteNonQuery();
             }
+        }
+
+        private bool checkIfRequiredBoxesAreEmpty()
+        {
+            bool textBoxNameIsEmpty = string.IsNullOrEmpty(textBoxName.Text);
+            bool textBoxSurnameIsEmpty = string.IsNullOrEmpty(textBoxSurname.Text);
+            bool textBoxPhoneNumberIsEmpty = string.IsNullOrEmpty(textBoxPhoneNumber.Text);
+            bool emptyBoxes = textBoxNameIsEmpty || textBoxSurnameIsEmpty || textBoxPhoneNumberIsEmpty;
+
+            if (emptyBoxes)
+            {
+                MessageBox.Show("Name, Surname, and Phone Number are required", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return emptyBoxes;
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
