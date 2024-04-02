@@ -11,7 +11,7 @@ namespace RealMadridDesktopApplication.Modules
         public int RoleAccessModifier { get; set; }
         private string login;
         private string password;
-        public Employee(AccessModifier roleAccessModifier, string login, string password) : base("", "", "", "", "")
+        public Employee(AccessModifier roleAccessModifier, string login, string password, string[] birthdayBuffer) : base("", "", "", "", "")
         {
             switch (roleAccessModifier)
             {
@@ -26,6 +26,7 @@ namespace RealMadridDesktopApplication.Modules
 
             this.login = login;
             this.password = password;
+            Birthday = birthdayBuffer[2] + "-" + birthdayBuffer[1] + "-" + birthdayBuffer[0];
         }
 
         //Getters and Setters

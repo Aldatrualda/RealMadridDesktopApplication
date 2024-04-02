@@ -22,29 +22,17 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            Parent parent = CreateParent();
-            bool emptyBoxes = checkIfRequiredBoxesAreEmpty();
-
-            if (!(emptyBoxes))
+            if (!CheckRequiredBoxesAreEmpty())
             {
-                InsertDataIntoDataBase(parent);
+                InsertDataIntoDataBase(new Parent(textBoxName.Text, textBoxSurname.Text, textBoxPhoneNumber.Text));
             }
-        }
-
-        private Parent CreateParent()
-        {
-            string name = textBoxName.Text;
-            string surname = textBoxSurname.Text;
-            string phoneNumber = textBoxPhoneNumber.Text;
-            Parent parent = new Parent(name, surname, phoneNumber);
-            return parent;
         }
 
         private void InsertDataIntoDataBase(Parent parent)
         {
             try
             {
-                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLConnection.ConnectionToSQL))
+                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLVariableContainer.ConnectionToSQL))
                 {
                     connection.Open();
                     InsertDataIntoParentOfPlayer(parent, connection);
@@ -52,7 +40,7 @@ namespace RealMadridDesktopApplication.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -70,12 +58,12 @@ namespace RealMadridDesktopApplication.Forms
             }
         }
 
-        private bool checkIfRequiredBoxesAreEmpty()
+        /// <summary>
+        /// Name, Surname, and Phone Number are requierd fields
+        /// </summary>
+        private bool CheckRequiredBoxesAreEmpty()
         {
-            bool textBoxNameIsEmpty = string.IsNullOrEmpty(textBoxName.Text);
-            bool textBoxSurnameIsEmpty = string.IsNullOrEmpty(textBoxSurname.Text);
-            bool textBoxPhoneNumberIsEmpty = string.IsNullOrEmpty(textBoxPhoneNumber.Text);
-            bool emptyBoxes = textBoxNameIsEmpty || textBoxSurnameIsEmpty || textBoxPhoneNumberIsEmpty;
+            bool emptyBoxes = string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text) || string.IsNullOrEmpty(textBoxPhoneNumber.Text);
 
             if (emptyBoxes)
             {
@@ -84,9 +72,7 @@ namespace RealMadridDesktopApplication.Forms
             return emptyBoxes;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => Close();
+        
     }
 }

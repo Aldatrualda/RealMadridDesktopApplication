@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using Npgsql;
 using RealMadridDesktopApplication.SQLConnection;
 using System.Numerics;
+using System.Data.SqlClient;
+using RealMadridDesktopApplication.Password;
 
 namespace RealMadridDesktopApplication.Forms
 {
@@ -23,64 +25,45 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            Employee employee = createEmployee();
-            bool empltyBoxes = checkIfRequiredBoxesAreEmpty();
-
-            if (!empltyBoxes)
+            Employee employee = new Employee(comboBoxRole.Text.Equals("Admin") ? AccessModifier.Admin : AccessModifier.Coach,
+                    CreateEmployeeLogin(textBoxName.Text, textBoxSurname.Text), CreateEmployeePassword(), dateTimePickerBirthday.Text.ToString().Split()[0].Split('/'))
             {
-                insertDataToDatabase(employee);
+                Name = textBoxName.Text,
+                Surname = textBoxSurname.Text,
+                AdditionalName = textBoxAdditionalName.Text,
+                PhoneNumber = textBoxPhoneNumber.Text
+            };
+
+            if (!CheckRequiredBoxesAreEmpty())
+            {
+                InsertDataToDatabase(employee);
+
             }
         }
 
-        private Employee createEmployee()
+        private string CreateEmployeeLogin(string name, string surname) => name + "_" + surname;
+
+        private string CreateEmployeePassword()
         {
-
-            AccessModifier accessModifier = new AccessModifier();
-            string roleAccessModifier = comboBoxRole.Text;
-            switch (roleAccessModifier)
-            {
-                case "Admin":
-                    accessModifier = AccessModifier.Admin;
-                    break;
-                case "Coach":
-                    accessModifier = AccessModifier.Coach;
-                    break;
-            }
-
-            Employee employee = new Employee(accessModifier, createEmployeeLogin(textBoxName.Text, textBoxSurname.Text), createEmployeePassword());
-            employee.Name = textBoxName.Text;
-            employee.Surname = textBoxSurname.Text;
-            employee.AdditionalName = textBoxAdditionalName.Text;
-            string[] birthdayBuffer = dateTimePickerBirthday.Text.ToString().Split()[0].Split('/');
-            employee.Birthday = birthdayBuffer[2] + "-" + birthdayBuffer[1] + "-" + birthdayBuffer[0];
-            employee.PhoneNumber = textBoxPhoneNumber.Text;
-            return employee;
+            GeneratePassword generatePassword = new GeneratePassword();
+            return generatePassword.Password;
         }
 
-        private string createEmployeeLogin(string name, string surname)
-        {
-            return name + "_" + surname;
-        }
-
-        private string createEmployeePassword()
-        {
-            return "password";
-        }
-
-        private void insertDataToDatabase(Employee employee)
+        private void InsertDataToDatabase(Employee employee)
         {
             try
             {
-                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLConnection.ConnectionToSQL))
+                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLVariableContainer.ConnectionToSQL))
                 {
                     connection.Open();
-                    insertDataIntoPersonalDetails(employee, connection);
-                    insertDataIntoEmployeeOfRealMadrid(employee, connection);
+                    InsertDataIntoPersonalDetails(employee, connection);
+                    InsertDataIntoEmployeeOfRealMadrid(employee, connection);
                 }
+                ShowMessageBoxLoginPassword(employee);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -88,7 +71,7 @@ namespace RealMadridDesktopApplication.Forms
             }
         }
 
-        private void insertDataIntoPersonalDetails(Employee employee, NpgsqlConnection connection)
+        private void InsertDataIntoPersonalDetails(Employee employee, NpgsqlConnection connection)
         {
             string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
                 "VALUES ('" + employee.Name + "', '" + employee.Surname + "', '" + employee.AdditionalName + "', '" + employee.Birthday + "', '" + employee.PhoneNumber + "')";
@@ -98,10 +81,10 @@ namespace RealMadridDesktopApplication.Forms
             }
         }
 
-        private void insertDataIntoEmployeeOfRealMadrid(Employee employee, NpgsqlConnection connection)
+        private void InsertDataIntoEmployeeOfRealMadrid(Employee employee, NpgsqlConnection connection)
         {
             string insertQuery = "INSERT INTO employee_of_real_madrid(role_access, personal_employee_details, login, password) " +
-                "VALUES ('" + employee.RoleAccessModifier + "', " + SQLConnection.SQLConnection.SelectPersonalPlayerIdFromPersonalDetails() + ", '"
+                "VALUES ('" + employee.RoleAccessModifier + "', " + SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails + ", '"
                 + employee.Login + "', '" + employee.Password + "')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
@@ -114,15 +97,16 @@ namespace RealMadridDesktopApplication.Forms
             textBoxName.Clear();
             textBoxSurname.Clear();
             textBoxAdditionalName.Clear();
+            textBoxPhoneNumber.Clear();
         }
 
-        private bool checkIfRequiredBoxesAreEmpty()
+        /// <summary>
+        /// Name, Surname, Role, and Phone Number are requierd fields
+        /// </summary>
+        private bool CheckRequiredBoxesAreEmpty()
         {
-            bool textBoxNameIsEmpty = string.IsNullOrEmpty(textBoxName.Text);
-            bool textBoxSurnameIsEmpty = string.IsNullOrEmpty(textBoxSurname.Text);
-            bool textBoxPhoneNumberIsEmpty = string.IsNullOrEmpty(textBoxPhoneNumber.Text);
-            bool comboBoxRoleIsEmpty = string.IsNullOrEmpty(comboBoxRole.Text);
-            bool emptyBoxes = textBoxNameIsEmpty || textBoxSurnameIsEmpty || textBoxPhoneNumberIsEmpty || comboBoxRoleIsEmpty;
+            bool emptyBoxes = string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text) ||
+                string.IsNullOrEmpty(textBoxPhoneNumber.Text) || string.IsNullOrEmpty(comboBoxRole.Text);
 
             if (emptyBoxes)
             {
@@ -131,9 +115,9 @@ namespace RealMadridDesktopApplication.Forms
             return emptyBoxes;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => Close();
+
+        private void ShowMessageBoxLoginPassword(Employee employee) => MessageBox.Show("Login: " + employee.Login + "\nPassword: " + employee.Password, "Employee information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        
     }
 }

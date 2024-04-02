@@ -22,32 +22,24 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            Player player = CreatePlayer();
-            bool emptyBoxes = checkIfRequiredBoxesAreEmpty();
-
-            if (!(emptyBoxes))
+            if (!(CheckRequiredBoxesAreEmpty()))
             {
-                InsertDateToDatabase(player);
+                InsertDateToDatabase(new Player(comboBoxNationality.Text, textBoxAddress.Text,
+                    comboBoxLocation.Text, dateBirthday.Text.ToString().Split()[0].Split('/'))
+                {
+                    Name = textBoxName.Text,
+                    Surname = textBoxSurname.Text,
+                    AdditionalName = textBoxAdditionalName.Text,
+                    PhoneNumber = textBoxPhoneNumber.Text
+                });
             }
-        }
-
-        private Player CreatePlayer()
-        {
-            Player player = new Player(comboBoxNationality.Text, textBoxAddress.Text, comboBoxLocation.Text);
-            player.Name = textBoxName.Text;
-            player.Surname = textBoxSurname.Text;
-            player.AdditionalName = textBoxAdditionalName.Text;
-            string[] birthdayBuffer = dateBirthday.Text.ToString().Split()[0].Split('/');
-            player.Birthday = birthdayBuffer[2] + "-" + birthdayBuffer[1] + "-" + birthdayBuffer[0];
-            player.PhoneNumber = textBoxPhoneNumber.Text;
-            return player;
         }
 
         private void InsertDateToDatabase(Player player)
         {
             try
             {
-                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLConnection.ConnectionToSQL))
+                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLVariableContainer.ConnectionToSQL))
                 {
                     connection.Open();
                     InsertDataIntoPersonalDetails(connection, player);
@@ -56,7 +48,7 @@ namespace RealMadridDesktopApplication.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -78,7 +70,7 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoPlayerOfRealMadrid(NpgsqlConnection connection, Player player)
         {
             string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
-                " VALUES (" + SQLConnection.SQLConnection.SelectPersonalPlayerIdFromPersonalDetails() + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
+                " VALUES (" + SQLConnection.SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -94,12 +86,13 @@ namespace RealMadridDesktopApplication.Forms
             textBoxAddress.Clear();
         }
 
-        private bool checkIfRequiredBoxesAreEmpty()
+        /// <summary>
+        /// Name, Surname, and Location are requierd fields
+        /// </summary>
+        private bool CheckRequiredBoxesAreEmpty()
         {
-            bool textBoxNameIsEmpty = string.IsNullOrEmpty(textBoxName.Text);
-            bool textBoxSurnameIsEmpty = string.IsNullOrEmpty(textBoxSurname.Text);
-            bool comboBoxLocationIsEmpty = string.IsNullOrEmpty(comboBoxLocation.Text);
-            bool emptyBoxes = textBoxNameIsEmpty || textBoxSurnameIsEmpty || comboBoxLocationIsEmpty;
+            bool emptyBoxes = string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text)
+                                || string.IsNullOrEmpty(comboBoxLocation.Text);
 
             if (emptyBoxes)
             {
@@ -108,9 +101,7 @@ namespace RealMadridDesktopApplication.Forms
             return emptyBoxes;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void buttonBack_Click(object sender, EventArgs e) => Close();
+
     }
 }

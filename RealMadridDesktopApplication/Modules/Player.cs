@@ -11,11 +11,12 @@ namespace RealMadridDesktopApplication.Modules
         private string natinality;
         private string address;
         private string location;
-        public Player(string natinality, string address, string location) : base("", "", "", "", "")
+        public Player(string natinality, string address, string location, string[] birthdayBuffer) : base("", "", "", "", "")
         {
             this.natinality = natinality;
             this.address = address;
             this.location = location;
+            Birthday = birthdayBuffer[2] + "-" + birthdayBuffer[1] + "-" + birthdayBuffer[0];
         }
 
         //Getters and Setters
