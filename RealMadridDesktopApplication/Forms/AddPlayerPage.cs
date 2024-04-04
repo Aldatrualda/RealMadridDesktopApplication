@@ -60,7 +60,8 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoPersonalDetails(NpgsqlConnection connection, Player player)
         {
             string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
-                "VALUES ('" + player.Name + "', '" + player.Surname + "', '" + player.AdditionalName + "', '" + player.Birthday + "', '" + player.PhoneNumber + "')";
+                $"VALUES ('{player.Name}', '{player.Surname}', '{player.AdditionalName}', " +
+                $"'{player.Birthday}', '{player.PhoneNumber}')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -70,7 +71,8 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoPlayerOfRealMadrid(NpgsqlConnection connection, Player player)
         {
             string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
-                " VALUES (" + SQLConnection.SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails + ", '" + player.Nationality + "', '" + player.Address + "', '" + player.Location + "')";
+                $" VALUES ({SQLConnection.SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails}, '{player.Nationality}'," +
+                $" '{player.Address}', '{player.Location}')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();

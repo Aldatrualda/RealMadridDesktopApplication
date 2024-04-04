@@ -10,7 +10,7 @@ namespace RealMadridDesktopApplication.Password
 
     public class GeneratePassword
     {
-        private string listOfChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
+        const string listOfChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
 
         private string password;
 
@@ -22,10 +22,8 @@ namespace RealMadridDesktopApplication.Password
             Random random = new Random();
             for (int i = 0; i < 9; i++)
             {
-                int randomIndex = random.Next(0, listOfChars.Length);
-                password.Append(listOfChars[randomIndex]);
+                password.Append(listOfChars[random.Next(0, listOfChars.Length)]);
             }
-
             return password.ToString();
         }
 

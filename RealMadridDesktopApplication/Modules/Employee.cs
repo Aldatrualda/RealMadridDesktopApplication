@@ -11,6 +11,13 @@ namespace RealMadridDesktopApplication.Modules
         public int RoleAccessModifier { get; set; }
         private string login;
         private string password;
+
+        /// <summary>
+        /// I get the string array "birthdayBuffer" that contains year, month, and day. These digits are their place in the array.
+        /// </summary>
+        const int BIRTHDAY_YEAR = 2;
+        const int BIRTTHDAY_MONTH = 1;
+        const int BIRTTTHDAY_DAY = 0;
         public Employee(AccessModifier roleAccessModifier, string login, string password, string[] birthdayBuffer) : base("", "", "", "", "")
         {
             switch (roleAccessModifier)
@@ -26,7 +33,7 @@ namespace RealMadridDesktopApplication.Modules
 
             this.login = login;
             this.password = password;
-            Birthday = birthdayBuffer[2] + "-" + birthdayBuffer[1] + "-" + birthdayBuffer[0];
+            Birthday = birthdayBuffer[BIRTHDAY_YEAR] + "-" + birthdayBuffer[BIRTTHDAY_MONTH] + "-" + birthdayBuffer[BIRTTTHDAY_DAY];
         }
 
         //Getters and Setters

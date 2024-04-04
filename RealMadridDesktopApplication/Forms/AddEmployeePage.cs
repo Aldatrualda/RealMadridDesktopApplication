@@ -25,29 +25,23 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            Employee employee = new Employee(comboBoxRole.Text.Equals("Admin") ? AccessModifier.Admin : AccessModifier.Coach,
-                    CreateEmployeeLogin(textBoxName.Text, textBoxSurname.Text), CreateEmployeePassword(), dateTimePickerBirthday.Text.ToString().Split()[0].Split('/'))
-            {
-                Name = textBoxName.Text,
-                Surname = textBoxSurname.Text,
-                AdditionalName = textBoxAdditionalName.Text,
-                PhoneNumber = textBoxPhoneNumber.Text
-            };
-
             if (!CheckRequiredBoxesAreEmpty())
             {
-                InsertDataToDatabase(employee);
+                InsertDataToDatabase(new Employee(comboBoxRole.Text.Equals("Admin") ? AccessModifier.Admin : AccessModifier.Coach,
+                    CreateEmployeeLogin(textBoxName.Text, textBoxSurname.Text), CreateEmployeePassword(), dateTimePickerBirthday.Text.ToString().Split()[0].Split('/'))
+                {
+                    Name = textBoxName.Text,
+                    Surname = textBoxSurname.Text,
+                    AdditionalName = textBoxAdditionalName.Text,
+                    PhoneNumber = textBoxPhoneNumber.Text
+                });
 
             }
         }
 
         private string CreateEmployeeLogin(string name, string surname) => name + "_" + surname;
 
-        private string CreateEmployeePassword()
-        {
-            GeneratePassword generatePassword = new GeneratePassword();
-            return generatePassword.Password;
-        }
+        private static string CreateEmployeePassword() => new GeneratePassword().Password;
 
         private void InsertDataToDatabase(Employee employee)
         {
@@ -74,7 +68,8 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoPersonalDetails(Employee employee, NpgsqlConnection connection)
         {
             string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
-                "VALUES ('" + employee.Name + "', '" + employee.Surname + "', '" + employee.AdditionalName + "', '" + employee.Birthday + "', '" + employee.PhoneNumber + "')";
+                $"VALUES ('{employee.Name}', '{employee.Surname}', ' {employee.AdditionalName}'," +
+                $" '{employee.Birthday}', '{employee.PhoneNumber}')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -84,8 +79,8 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoEmployeeOfRealMadrid(Employee employee, NpgsqlConnection connection)
         {
             string insertQuery = "INSERT INTO employee_of_real_madrid(role_access, personal_employee_details, login, password) " +
-                "VALUES ('" + employee.RoleAccessModifier + "', " + SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails + ", '"
-                + employee.Login + "', '" + employee.Password + "')";
+                $"VALUES ('{employee.RoleAccessModifier}', {SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails}," +
+                $"'{employee.Login}', '{employee.Password}')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -118,6 +113,6 @@ namespace RealMadridDesktopApplication.Forms
         private void buttonBack_Click(object sender, EventArgs e) => Close();
 
         private void ShowMessageBoxLoginPassword(Employee employee) => MessageBox.Show("Login: " + employee.Login + "\nPassword: " + employee.Password, "Employee information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        
+
     }
 }

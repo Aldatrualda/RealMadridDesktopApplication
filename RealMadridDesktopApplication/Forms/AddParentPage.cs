@@ -51,7 +51,7 @@ namespace RealMadridDesktopApplication.Forms
         private void InsertDataIntoParentOfPlayer(Parent parent, NpgsqlConnection connection)
         {
             string insertQuery = "INSERT INTO parent_of_player(name, surname, phone_number) " +
-                                 "VALUES ('" + parent.Name + "', '" + parent.Surname + "', '" + parent.PhoneNumber + "')";
+                                 $"VALUES ('{parent.Name}', '{parent.Surname}', '{parent.PhoneNumber}')";
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
