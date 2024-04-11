@@ -1,6 +1,6 @@
 ﻿namespace RealMadridDesktopApplication.Forms
 {
-    partial class MainPage
+    partial class MainPageAdmin
     {
         /// <summary>
         /// Required designer variable.
@@ -28,31 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
-            pictureBox1 = new PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPageAdmin));
+            pictureBox = new PictureBox();
             buttonAddNewPlayer = new Button();
             buttonShowAllPlayers = new Button();
             buttonAddEmployee = new Button();
             buttonShowEmployees = new Button();
             labelRealMadridFoundation = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(12, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(166, 172);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            pictureBox.Dock = DockStyle.Left;
+            pictureBox.Image = (Image)resources.GetObject("pictureBox.Image");
+            pictureBox.Location = new Point(4, 4);
+            pictureBox.MaximumSize = new Size(186, 192);
+            pictureBox.MinimumSize = new Size(166, 172);
+            pictureBox.Name = "pictureBox";
+            pictureBox.Size = new Size(166, 192);
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.TabIndex = 1;
+            pictureBox.TabStop = false;
             // 
             // buttonAddNewPlayer
             // 
-            buttonAddNewPlayer.Location = new Point(223, 251);
+            buttonAddNewPlayer.Anchor = AnchorStyles.None;
+            buttonAddNewPlayer.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonAddNewPlayer.Location = new Point(227, 255);
+            buttonAddNewPlayer.MaximumSize = new Size(200, 55);
+            buttonAddNewPlayer.MinimumSize = new Size(190, 45);
             buttonAddNewPlayer.Name = "buttonAddNewPlayer";
-            buttonAddNewPlayer.Size = new Size(200, 40);
+            buttonAddNewPlayer.Size = new Size(190, 45);
             buttonAddNewPlayer.TabIndex = 2;
             buttonAddNewPlayer.Text = "Add player";
             buttonAddNewPlayer.UseVisualStyleBackColor = true;
@@ -60,18 +67,27 @@
             // 
             // buttonShowAllPlayers
             // 
-            buttonShowAllPlayers.Location = new Point(508, 251);
+            buttonShowAllPlayers.Anchor = AnchorStyles.None;
+            buttonShowAllPlayers.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonShowAllPlayers.Location = new Point(504, 255);
+            buttonShowAllPlayers.MaximumSize = new Size(200, 55);
+            buttonShowAllPlayers.MinimumSize = new Size(190, 45);
             buttonShowAllPlayers.Name = "buttonShowAllPlayers";
-            buttonShowAllPlayers.Size = new Size(200, 40);
+            buttonShowAllPlayers.Size = new Size(190, 45);
             buttonShowAllPlayers.TabIndex = 3;
             buttonShowAllPlayers.Text = "Show players";
             buttonShowAllPlayers.UseVisualStyleBackColor = true;
+            buttonShowAllPlayers.Click += buttonShowAllPlayers_Click;
             // 
             // buttonAddEmployee
             // 
-            buttonAddEmployee.Location = new Point(223, 346);
+            buttonAddEmployee.Anchor = AnchorStyles.None;
+            buttonAddEmployee.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonAddEmployee.Location = new Point(227, 341);
+            buttonAddEmployee.MaximumSize = new Size(200, 55);
+            buttonAddEmployee.MinimumSize = new Size(190, 45);
             buttonAddEmployee.Name = "buttonAddEmployee";
-            buttonAddEmployee.Size = new Size(200, 40);
+            buttonAddEmployee.Size = new Size(190, 45);
             buttonAddEmployee.TabIndex = 4;
             buttonAddEmployee.Text = "Add employee";
             buttonAddEmployee.UseVisualStyleBackColor = true;
@@ -79,24 +95,31 @@
             // 
             // buttonShowEmployees
             // 
-            buttonShowEmployees.Location = new Point(508, 346);
+            buttonShowEmployees.Anchor = AnchorStyles.None;
+            buttonShowEmployees.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonShowEmployees.Location = new Point(504, 341);
+            buttonShowEmployees.MaximumSize = new Size(200, 55);
+            buttonShowEmployees.MinimumSize = new Size(190, 45);
             buttonShowEmployees.Name = "buttonShowEmployees";
-            buttonShowEmployees.Size = new Size(200, 40);
+            buttonShowEmployees.Size = new Size(190, 45);
             buttonShowEmployees.TabIndex = 5;
             buttonShowEmployees.Text = "Show employees";
             buttonShowEmployees.UseVisualStyleBackColor = true;
+            buttonShowEmployees.Click += buttonShowEmployees_Click;
             // 
             // labelRealMadridFoundation
             // 
-            labelRealMadridFoundation.AutoSize = true;
+            labelRealMadridFoundation.Anchor = AnchorStyles.None;
             labelRealMadridFoundation.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            labelRealMadridFoundation.Location = new Point(223, 149);
+            labelRealMadridFoundation.Location = new Point(227, 161);
+            labelRealMadridFoundation.MaximumSize = new Size(600, 55);
+            labelRealMadridFoundation.MinimumSize = new Size(485, 35);
             labelRealMadridFoundation.Name = "labelRealMadridFoundation";
             labelRealMadridFoundation.Size = new Size(485, 35);
             labelRealMadridFoundation.TabIndex = 8;
             labelRealMadridFoundation.Text = "Real Madrid Foundation Program";
             // 
-            // MainPage
+            // MainPageAdmin
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -107,19 +130,22 @@
             Controls.Add(buttonAddEmployee);
             Controls.Add(buttonShowAllPlayers);
             Controls.Add(buttonAddNewPlayer);
-            Controls.Add(pictureBox1);
+            Controls.Add(pictureBox);
             Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Margin = new Padding(4);
-            Name = "MainPage";
+            MaximumSize = new Size(1920, 1080);
+            MinimumSize = new Size(900, 550);
+            Name = "MainPageAdmin";
+            Padding = new Padding(4);
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Page";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private PictureBox pictureBox1;
+        private PictureBox pictureBox;
         private Button buttonAddNewPlayer;
         private Button buttonShowAllPlayers;
         private Button buttonAddEmployee;

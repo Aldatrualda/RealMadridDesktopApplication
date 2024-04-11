@@ -13,11 +13,13 @@ using RealMadridDesktopApplication.SQLConnection;
 using System.Numerics;
 using System.Data.SqlClient;
 using RealMadridDesktopApplication.Password;
+using NLog;
 
 namespace RealMadridDesktopApplication.Forms
 {
     public partial class AddEmployeePage : Form
     {
+        Logger logger = LogManager.GetCurrentClassLogger();
         public AddEmployeePage()
         {
             InitializeComponent();
@@ -25,6 +27,8 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
+            logger.Info("Button {NEXT} was clicked");
+
             if (!CheckRequiredBoxesAreEmpty())
             {
                 InsertDataToDatabase(new Employee(comboBoxRole.Text.Equals("Admin") ? AccessModifier.Admin : AccessModifier.Coach,
@@ -35,7 +39,6 @@ namespace RealMadridDesktopApplication.Forms
                     AdditionalName = textBoxAdditionalName.Text,
                     PhoneNumber = textBoxPhoneNumber.Text
                 });
-
             }
         }
 
@@ -57,11 +60,13 @@ namespace RealMadridDesktopApplication.Forms
             }
             catch (Exception ex)
             {
+                logger.Error($"An error occurred: {ex}");
                 MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 ClearTextBoxes();
+                logger.Info("Employee was successfully added to database");
             }
         }
 
@@ -70,6 +75,7 @@ namespace RealMadridDesktopApplication.Forms
             string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
                 $"VALUES ('{employee.Name}', '{employee.Surname}', ' {employee.AdditionalName}'," +
                 $" '{employee.Birthday}', '{employee.PhoneNumber}')";
+
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -81,6 +87,7 @@ namespace RealMadridDesktopApplication.Forms
             string insertQuery = "INSERT INTO employee_of_real_madrid(role_access, personal_employee_details, login, password) " +
                 $"VALUES ('{employee.RoleAccessModifier}', {SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails}," +
                 $"'{employee.Login}', '{employee.Password}')";
+
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -105,14 +112,20 @@ namespace RealMadridDesktopApplication.Forms
 
             if (emptyBoxes)
             {
+                logger.Info("Not all required boxes are filled. Employee Page.");
                 MessageBox.Show("Name, Surname, Phone Number, and Role are required", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return emptyBoxes;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e) => Close();
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            Close();
+            logger.Info("Window Add Employee Page was closed");
+        }
+        
 
-        private void ShowMessageBoxLoginPassword(Employee employee) => MessageBox.Show("Login: " + employee.Login + "\nPassword: " + employee.Password, "Employee information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+        private void ShowMessageBoxLoginPassword(Employee employee) => MessageBox.Show($"Login: {employee.Login} + \nPassword: {employee.Password}",
+            "Employee information", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 }

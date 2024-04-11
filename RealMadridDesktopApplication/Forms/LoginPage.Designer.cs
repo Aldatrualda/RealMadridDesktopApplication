@@ -43,8 +43,9 @@
             // 
             // labelLogin
             // 
+            labelLogin.Anchor = AnchorStyles.None;
             labelLogin.AutoSize = true;
-            labelLogin.Location = new Point(286, 254);
+            labelLogin.Location = new Point(212, 254);
             labelLogin.Name = "labelLogin";
             labelLogin.Size = new Size(70, 24);
             labelLogin.TabIndex = 0;
@@ -52,8 +53,9 @@
             // 
             // labelPassword
             // 
+            labelPassword.Anchor = AnchorStyles.None;
             labelPassword.AutoSize = true;
-            labelPassword.Location = new Point(286, 295);
+            labelPassword.Location = new Point(212, 295);
             labelPassword.Name = "labelPassword";
             labelPassword.Size = new Size(110, 24);
             labelPassword.TabIndex = 1;
@@ -61,6 +63,7 @@
             // 
             // labelWelcoming
             // 
+            labelWelcoming.Anchor = AnchorStyles.None;
             labelWelcoming.AutoSize = true;
             labelWelcoming.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point);
             labelWelcoming.Location = new Point(212, 149);
@@ -71,14 +74,16 @@
             // 
             // textBoxLogin
             // 
-            textBoxLogin.Location = new Point(402, 248);
+            textBoxLogin.Anchor = AnchorStyles.None;
+            textBoxLogin.Location = new Point(332, 248);
             textBoxLogin.Name = "textBoxLogin";
             textBoxLogin.Size = new Size(229, 30);
             textBoxLogin.TabIndex = 3;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.Location = new Point(402, 289);
+            textBoxPassword.Anchor = AnchorStyles.None;
+            textBoxPassword.Location = new Point(332, 289);
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(229, 30);
             textBoxPassword.TabIndex = 4;
@@ -86,7 +91,8 @@
             // 
             // buttonLogin
             // 
-            buttonLogin.Location = new Point(541, 347);
+            buttonLogin.Anchor = AnchorStyles.None;
+            buttonLogin.Location = new Point(471, 347);
             buttonLogin.Name = "buttonLogin";
             buttonLogin.Size = new Size(90, 35);
             buttonLogin.TabIndex = 5;
@@ -96,7 +102,8 @@
             // 
             // buttonClear
             // 
-            buttonClear.Location = new Point(402, 347);
+            buttonClear.Anchor = AnchorStyles.None;
+            buttonClear.Location = new Point(332, 347);
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new Size(90, 35);
             buttonClear.TabIndex = 6;
@@ -116,9 +123,10 @@
             // 
             // checkBoxShow
             // 
+            checkBoxShow.Anchor = AnchorStyles.None;
             checkBoxShow.AutoSize = true;
             checkBoxShow.Font = new Font("Arial", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
-            checkBoxShow.Location = new Point(637, 297);
+            checkBoxShow.Location = new Point(567, 297);
             checkBoxShow.Name = "checkBoxShow";
             checkBoxShow.Size = new Size(62, 20);
             checkBoxShow.TabIndex = 8;
@@ -144,6 +152,7 @@
             Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
             Margin = new Padding(5, 4, 5, 4);
             Name = "LoginPage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
             ResumeLayout(false);

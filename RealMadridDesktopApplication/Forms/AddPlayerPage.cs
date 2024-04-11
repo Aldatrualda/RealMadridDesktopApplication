@@ -10,11 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Numerics;
+using NLog;
 
 namespace RealMadridDesktopApplication.Forms
 {
     public partial class AddPlayerPage : Form
     {
+        Logger logger = LogManager.GetCurrentClassLogger();
+
         public AddPlayerPage()
         {
             InitializeComponent();
@@ -22,6 +25,7 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
+            logger.Info("Button {NEXT} was clicked");
             if (!(CheckRequiredBoxesAreEmpty()))
             {
                 InsertDateToDatabase(new Player(comboBoxNationality.Text, textBoxAddress.Text,
@@ -48,12 +52,14 @@ namespace RealMadridDesktopApplication.Forms
             }
             catch (Exception ex)
             {
+                logger.Error($"An error occurred: {ex}");
                 MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 ClearTextBoxes();
                 new AddParentPage().Show();
+                logger.Info("Window Add Parent Page was opened");
             }
         }
 
@@ -62,6 +68,7 @@ namespace RealMadridDesktopApplication.Forms
             string insertQuery = "INSERT INTO personal_details(name, surname, additional_name, birthday, phone_number) " +
                 $"VALUES ('{player.Name}', '{player.Surname}', '{player.AdditionalName}', " +
                 $"'{player.Birthday}', '{player.PhoneNumber}')";
+
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -73,6 +80,7 @@ namespace RealMadridDesktopApplication.Forms
             string insertQuery = "INSERT INTO player_of_real_madrid(personal_player_details, nationality, address, location)" +
                 $" VALUES ({SQLConnection.SQLVariableContainer.SelectPersonalPlayerIdFromPersonalDetails}, '{player.Nationality}'," +
                 $" '{player.Address}', '{player.Location}')";
+
             using (NpgsqlCommand command = new NpgsqlCommand(insertQuery, connection))
             {
                 int rowsAffected = command.ExecuteNonQuery();
@@ -98,12 +106,16 @@ namespace RealMadridDesktopApplication.Forms
 
             if (emptyBoxes)
             {
+                logger.Info("Not all required boxes are filled. Player Page.");
                 MessageBox.Show("Name, Surname, and Location are required", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return emptyBoxes;
         }
 
-        private void buttonBack_Click(object sender, EventArgs e) => Close();
-
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            Close();
+            logger.Info("Window Add Player Page was closed");
+        }
     }
 }
