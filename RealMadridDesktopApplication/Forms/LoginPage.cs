@@ -55,7 +55,16 @@ namespace RealMadridDesktopApplication
             {
                 login = textBoxLogin.Text;
                 password = textBoxPassword.Text;
-                new MainPageAdmin(LoginAccount(login, password));
+
+                var accesModifier = GetAccessModifierOfAccount(login, password);
+                if (accesModifier.Equals("admin"))
+                {
+                    new MainPage(AccessModifier.Admin);
+                }
+                else
+                {
+                    new MainPage(AccessModifier.Coach);
+                }
             }
             else
             {
@@ -66,13 +75,6 @@ namespace RealMadridDesktopApplication
                 //focus mouse on the text box login
                 textBoxLogin.Focus();
             }
-        }
-
-        private Account LoginAccount(string login, string password)
-        {
-            string accessModifier = GetAccessModifierOfAccount(login, password);
-            Account account = new Account(accessModifier);
-            return account;
         }
 
         private string GetAccessModifierOfAccount(string login, string password)

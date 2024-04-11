@@ -13,23 +13,30 @@ using NLog;
 
 namespace RealMadridDesktopApplication.Forms
 {
-    public partial class MainPageAdmin : Form
+    public partial class MainPage : Form
     {
 
         Logger logger = LogManager.GetCurrentClassLogger();
 
-        public MainPageAdmin(Account account)
+        private AccessModifier accessModifier;
+
+        public MainPage(AccessModifier accessModifier)
         {
             logger.Info("Main Page openned");
             InitializeComponent();
-            if (account.AccessModifier.Equals("admin"))
+
+            this.accessModifier = accessModifier;
+
+            if (accessModifier.Equals("admin"))
             {
-                this.Show();
-            } else if (account.AccessModifier.Equals("coach")){ 
+                Show();
+            }
+            else if (accessModifier.Equals("coach"))
+            {
                 buttonAddEmployee.Visible = false;
                 buttonAddNewPlayer.Visible = false;
                 buttonShowEmployees.Location = new Point(227, 255);
-                this.Show();
+                Show();
             }
         }
 

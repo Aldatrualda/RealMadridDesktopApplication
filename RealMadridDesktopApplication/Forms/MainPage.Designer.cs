@@ -1,6 +1,6 @@
 ﻿namespace RealMadridDesktopApplication.Forms
 {
-    partial class MainPageAdmin
+    partial class MainPage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPageAdmin));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
             pictureBox = new PictureBox();
             buttonAddNewPlayer = new Button();
             buttonShowAllPlayers = new Button();
@@ -119,7 +119,7 @@
             labelRealMadridFoundation.TabIndex = 8;
             labelRealMadridFoundation.Text = "Real Madrid Foundation Program";
             // 
-            // MainPageAdmin
+            // MainPage
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -135,7 +135,7 @@
             Margin = new Padding(4);
             MaximumSize = new Size(1920, 1080);
             MinimumSize = new Size(900, 550);
-            Name = "MainPageAdmin";
+            Name = "MainPage";
             Padding = new Padding(4);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Page";

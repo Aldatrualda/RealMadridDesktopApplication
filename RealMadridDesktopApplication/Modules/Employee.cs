@@ -48,10 +48,4 @@ namespace RealMadridDesktopApplication.Modules
             set { password = value; }
         }
     }
-
-    public enum AccessModifier
-    {
-        Admin = 1,
-        Coach = 2
-    }
 }
