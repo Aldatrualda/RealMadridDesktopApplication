@@ -18,20 +18,16 @@ namespace RealMadridDesktopApplication.Forms
 
         Logger logger = LogManager.GetCurrentClassLogger();
 
-        private AccessModifier accessModifier;
-
         public MainPage(AccessModifier accessModifier)
         {
             logger.Info("Main Page openned");
             InitializeComponent();
 
-            this.accessModifier = accessModifier;
-
-            if (accessModifier.Equals("admin"))
+            if (accessModifier == AccessModifier.Admin)
             {
                 Show();
             }
-            else if (accessModifier.Equals("coach"))
+            else if (accessModifier == AccessModifier.Coach)
             {
                 buttonAddEmployee.Visible = false;
                 buttonAddNewPlayer.Visible = false;
