@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace RealMadridDesktopApplication.SQLConnection
 {
@@ -10,7 +11,7 @@ namespace RealMadridDesktopApplication.SQLConnection
     {
         /// <summary>
         /// The info about the local database. I use it to connect to my SQL server.
-        /// </summary>
+        /// </summary>       
         public static string ConnectionToSQL = "Host=localhost;Port=5432;Database=RealMadridDB;Username=postgres;Password=123456";
 
         /// <summary>
@@ -25,16 +26,16 @@ namespace RealMadridDesktopApplication.SQLConnection
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>
-        public static string GetCountFromEmployeeOfRealMadrid(string login, string password) => 
+        public static string GetCountFromEmployeeOfRealMadrid(string login, string password) =>
             $"SELECT COUNT(*) FROM employee_of_real_madrid " +
             $"WHERE login = '{login}' AND password = '{password}'";
-        
+
         /// <summary>
         /// Login page. We use it to get an user access modifier. According to the access modifier it has different access to app abilities.
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>
-        public static string SelectAccessModifierOfUser(string login, string password) => 
+        public static string SelectAccessModifierOfUser(string login, string password) =>
             $"SELECT type_of_viewer FROM access_modifier " +
             $"  JOIN employee_of_real_madrid " +
             $"      ON employee_of_real_madrid.role_access = access_modifier.access_modifier_id " +
@@ -43,7 +44,7 @@ namespace RealMadridDesktopApplication.SQLConnection
         /// <summary>
         /// Show player page. We use this query to show players from database.
         /// </summary>
-        public static string SelectPlayersFromRealMadrid = 
+        public static string SelectPlayersFromRealMadrid =
             "SELECT * FROM player_of_real_madrid " +
             "   JOIN personal_details " +
             "       ON personal_details_id = personal_player_details";
@@ -51,7 +52,7 @@ namespace RealMadridDesktopApplication.SQLConnection
         /// <summary>
         /// Show Employee Page. We use this query to show employees from database.
         /// </summary>
-        public static string SelectEmployeesFromRealMadrid = 
+        public static string SelectEmployeesFromRealMadrid =
             "SELECT * FROM employee_of_real_madrid " +
             "   JOIN personal_details " +
             "       ON personal_details_id = personal_employee_details";
