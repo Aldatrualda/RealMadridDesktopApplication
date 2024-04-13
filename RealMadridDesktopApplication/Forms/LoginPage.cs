@@ -27,31 +27,41 @@ namespace RealMadridDesktopApplication
         private void LoginEmployee()
         {
             logger.Info("Button {Login} was clicked");
-            try
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLVariableContainer.ConnectionToSQL))
             {
-                using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLVariableContainer.ConnectionToSQL))
+                try
                 {
                     connection.Open();
-                    CreateDataAdapter(SQLConnection.SQLVariableContainer.SelectDataFromEmployeeOfRealMadrid(textBoxLogin.Text, textBoxPassword.Text), connection);
+                    CheckEmployeeDataBase(SQLConnection.SQLVariableContainer.GetCountFromEmployeeOfRealMadrid(textBoxLogin.Text, textBoxPassword.Text), connection);
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Error($"An error occurred: {ex}");
-                MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    logger.Error($"An error occurred: {ex}");
+                    MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        private void CreateDataAdapter(string selectQuery, NpgsqlConnection connection)
+        private void CheckEmployeeDataBase(string countQuery, NpgsqlConnection connection)
         {
             string login;
             string password;
-            NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter(selectQuery, connection);
+            var employeeCount = 0;
+            using (NpgsqlCommand command = new NpgsqlCommand(countQuery, connection))
+            {
+                NpgsqlDataReader dataReader = command.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    employeeCount = dataReader.GetInt32(0);
+                }
+                else
+                {
+                    employeeCount = 0;
+                }
+            }
 
-            DataTable dataTable = new DataTable();
-            npgsqlDataAdapter.Fill(dataTable);
-
-            if (dataTable.Rows.Count > 0)
+            if (employeeCount > 0)
             {
                 login = textBoxLogin.Text;
                 password = textBoxPassword.Text;
@@ -95,12 +105,12 @@ namespace RealMadridDesktopApplication
                         }
                         else
                         {
-                            accessModifier = "isn't defined";
+                            accessModifier = null;
                         }
                     }
                     catch (Exception ex)
                     {
-                        logger.Error($"An error occurred: {ex}");
+                        logger.Error($"Access midifier = {accessModifier}. An error occurred: {ex}");
                         MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }

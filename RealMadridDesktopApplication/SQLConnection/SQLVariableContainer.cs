@@ -21,12 +21,12 @@ namespace RealMadridDesktopApplication.SQLConnection
             "ORDER BY personal_details_id DESC LIMIT 1";
 
         /// <summary>
-        /// Login page. We use it to get an employee data from database with the same login and password to authorize the account.
+        /// Login page. We use it to get count of an employee from database with the same login and password to authorize the account.
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>
-        public static string SelectDataFromEmployeeOfRealMadrid(string login, string password) => 
-            $"SELECT * FROM employee_of_real_madrid " +
+        public static string GetCountFromEmployeeOfRealMadrid(string login, string password) => 
+            $"SELECT COUNT(*) FROM employee_of_real_madrid " +
             $"WHERE login = '{login}' AND password = '{password}'";
         
         /// <summary>
