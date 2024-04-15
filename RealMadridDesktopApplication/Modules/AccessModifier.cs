@@ -9,6 +9,7 @@ namespace RealMadridDesktopApplication.Modules
     public enum AccessModifier
     {
         Admin = 1,
-        Coach = 2
+        Coach = 2,
+        Empty = 3
     }
 }

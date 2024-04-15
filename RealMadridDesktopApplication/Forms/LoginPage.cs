@@ -45,29 +45,17 @@ namespace RealMadridDesktopApplication
 
         private void CheckEmployeeDataBase(string countQuery, NpgsqlConnection connection)
         {
-            string login;
-            string password;
-            var employeeCount = 0;
+            bool employeeLogin = false;
+
             using (NpgsqlCommand command = new NpgsqlCommand(countQuery, connection))
             {
                 NpgsqlDataReader dataReader = command.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    employeeCount = dataReader.GetInt32(0);
-                }
-                else
-                {
-                    employeeCount = 0;
-                }
+                employeeLogin = dataReader.Read();
             }
 
-            if (employeeCount > 0)
+            if (employeeLogin)
             {
-                login = textBoxLogin.Text;
-                password = textBoxPassword.Text;
-
-                var accesModifier = GetAccessModifierOfAccount(login, password);
-                if (accesModifier.Equals("admin"))
+                if (GetAccessModifierOfAccount(textBoxLogin.Text, textBoxPassword.Text) == AccessModifier.Admin)
                 {
                     new MainPage(AccessModifier.Admin);
                 }
@@ -82,15 +70,13 @@ namespace RealMadridDesktopApplication
                 MessageBox.Show("Invalid login details", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxLogin.Clear();
                 textBoxPassword.Clear();
-                //focus mouse on the text box login
+                // Focus mouse on the text box login.
                 textBoxLogin.Focus();
             }
         }
 
-        private string GetAccessModifierOfAccount(string login, string password)
+        private AccessModifier GetAccessModifierOfAccount(string login, string password)
         {
-            var accessModifier = "";
-
             using (NpgsqlConnection connection = new NpgsqlConnection(SQLConnection.SQLVariableContainer.ConnectionToSQL))
             {
                 using (NpgsqlCommand command = new NpgsqlCommand(SQLConnection.SQLVariableContainer.SelectAccessModifierOfUser(login, password), connection))
@@ -99,23 +85,22 @@ namespace RealMadridDesktopApplication
                     {
                         connection.Open();
                         NpgsqlDataReader dataReader = command.ExecuteReader();
-                        if (dataReader.Read())
-                        {
-                            accessModifier = dataReader.GetString(0);
-                        }
-                        else
-                        {
-                            accessModifier = null;
-                        }
+
+                        return dataReader.Read() 
+                            ? dataReader.GetString(0) == "admin"
+                                ? AccessModifier.Admin 
+                                : AccessModifier.Coach
+                            : AccessModifier.Empty;
                     }
                     catch (Exception ex)
                     {
-                        logger.Error($"Access midifier = {accessModifier}. An error occurred: {ex}");
+                        logger.Error($"AccessModifier has an error. An error occurred: {ex}");
                         MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return AccessModifier.Empty;
                     }
                 }
             }
-            return accessModifier;
         }
 
         private void checkBoxShow_CheckedChanged(object sender, EventArgs e)
