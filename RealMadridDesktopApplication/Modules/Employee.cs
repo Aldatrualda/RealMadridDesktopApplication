@@ -16,8 +16,8 @@ namespace RealMadridDesktopApplication.Modules
         /// I get the string array "birthdayBuffer" that contains year, month, and day. These digits are their place in the array.
         /// </summary>
         const int BIRTHDAY_YEAR = 2;
-        const int BIRTTHDAY_MONTH = 1;
-        const int BIRTTTHDAY_DAY = 0;
+        const int BIRTHDAY_MONTH = 1;
+        const int BIRTHDAY_DAY = 0;
         public Employee(AccessModifier roleAccessModifier, string login, string password, string[] birthdayBuffer) : base("", "", "", "", "")
         {
             switch (roleAccessModifier)
@@ -33,7 +33,7 @@ namespace RealMadridDesktopApplication.Modules
 
             this.login = login;
             this.password = password;
-            Birthday = birthdayBuffer[BIRTHDAY_YEAR] + "-" + birthdayBuffer[BIRTTHDAY_MONTH] + "-" + birthdayBuffer[BIRTTTHDAY_DAY];
+            Birthday = birthdayBuffer[BIRTHDAY_YEAR] + "-" + birthdayBuffer[BIRTHDAY_MONTH] + "-" + birthdayBuffer[BIRTHDAY_DAY];
         }
 
         //Getters and Setters
@@ -47,11 +47,5 @@ namespace RealMadridDesktopApplication.Modules
             get { return password; }
             set { password = value; }
         }
-    }
-
-    public enum AccessModifier
-    {
-        Admin = 1,
-        Coach = 2
     }
 }

@@ -9,26 +9,59 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using RealMadridDesktopApplication.Modules;
+using NLog;
 
 namespace RealMadridDesktopApplication.Forms
 {
     public partial class MainPage : Form
     {
-        public MainPage()
+
+        Logger logger = LogManager.GetCurrentClassLogger();
+
+        public MainPage(AccessModifier accessModifier)
         {
+            logger.Info("Main Page openned");
             InitializeComponent();
+
+            if (accessModifier == AccessModifier.Admin)
+            {
+                Show();
+            }
+            else if (accessModifier == AccessModifier.Coach)
+            {
+                buttonAddEmployee.Visible = false;
+                buttonAddNewPlayer.Visible = false;
+                buttonShowEmployees.Location = new Point(227, 255);
+                Show();
+            }
         }
 
         private void buttonAddNewPlayer_Click(object sender, EventArgs e)
         {
             AddPlayerPage addPlayerPage = new AddPlayerPage();
             addPlayerPage.Show();
+            logger.Info("Window Add Player Page was opened");
         }
 
         private void buttonAddEmployee_Click(object sender, EventArgs e)
         {
             AddEmployeePage addEmployeePage = new AddEmployeePage();
             addEmployeePage.Show();
+            logger.Info("Window Add Employee Page was opened");
+        }
+
+        private void buttonShowAllPlayers_Click(object sender, EventArgs e)
+        {
+            ShowPlayerPage showPlayerPage = new ShowPlayerPage();
+            showPlayerPage.Show();
+            logger.Info("Window Show Player Page was opened");
+        }
+
+        private void buttonShowEmployees_Click(object sender, EventArgs e)
+        {
+            ShowEmployeePage showEmployeePage = new ShowEmployeePage();
+            showEmployeePage.Show();
+            logger.Info("Window Show EMployee Page was opened");
         }
     }
 }

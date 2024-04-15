@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace RealMadridDesktopApplication.Password
 {
-
+    /// <summary>
+    /// Generate a random password for a new employee. The password is 8 symbols. 
+    /// Choosing a char randomly from the constant list of chars and add the char to the password StringBuilder.
+    /// </summary>
     public class GeneratePassword
     {
         const string listOfChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()";
