@@ -17,11 +17,13 @@ namespace RealMadridDesktopApplication.Forms
     {
 
         Logger logger = LogManager.GetCurrentClassLogger();
+        AccessModifier accessModifier;
 
         public MainPage(AccessModifier accessModifier)
         {
             logger.Info("Main Page openned");
             InitializeComponent();
+            this.accessModifier = accessModifier;
 
             if (accessModifier == AccessModifier.Admin)
             {
@@ -59,7 +61,7 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonShowEmployees_Click(object sender, EventArgs e)
         {
-            ShowEmployeePage showEmployeePage = new ShowEmployeePage();
+            ShowEmployeePage showEmployeePage = new ShowEmployeePage(accessModifier);
             showEmployeePage.Show();
             logger.Info("Window Show EMployee Page was opened");
         }

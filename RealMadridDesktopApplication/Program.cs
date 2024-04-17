@@ -19,7 +19,7 @@ namespace RealMadridDesktopApplication
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            LoginPage loginPage = new LoginPage();
+            LoginPage loginPage = new LoginPage();  
             Application.Run(loginPage);
             logger.Info("Program closed");
         }
