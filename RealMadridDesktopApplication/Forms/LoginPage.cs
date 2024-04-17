@@ -18,8 +18,7 @@ namespace RealMadridDesktopApplication
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            textBoxLogin.Clear();
-            textBoxPassword.Clear();
+            EmptyBoxes();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e) => LoginEmployee();
@@ -57,19 +56,22 @@ namespace RealMadridDesktopApplication
             {
                 if (GetAccessModifierOfAccount(textBoxLogin.Text, textBoxPassword.Text) == AccessModifier.Admin)
                 {
-                    new MainPage(AccessModifier.Admin);
+                    new MainPage(AccessModifier.Admin, this).Show();
+                    EmptyBoxes();
+                    Hide();
                 }
                 else
                 {
-                    new MainPage(AccessModifier.Coach);
+                    new MainPage(AccessModifier.Coach, this).Show();
+                    EmptyBoxes();
+                    Hide();
                 }
             }
             else
             {
                 logger.Info("Invalid login details were typed");
                 MessageBox.Show("Invalid login details", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBoxLogin.Clear();
-                textBoxPassword.Clear();
+                EmptyBoxes();
                 // Focus mouse on the text box login.
                 textBoxLogin.Focus();
             }
@@ -86,9 +88,9 @@ namespace RealMadridDesktopApplication
                         connection.Open();
                         NpgsqlDataReader dataReader = command.ExecuteReader();
 
-                        return dataReader.Read() 
+                        return dataReader.Read()
                             ? dataReader.GetString(0) == "admin"
-                                ? AccessModifier.Admin 
+                                ? AccessModifier.Admin
                                 : AccessModifier.Coach
                             : AccessModifier.Empty;
                     }
@@ -101,6 +103,12 @@ namespace RealMadridDesktopApplication
                     }
                 }
             }
+        }
+
+        private void EmptyBoxes()
+        {
+            textBoxLogin.Clear();
+            textBoxPassword.Clear();
         }
 
         private void checkBoxShow_CheckedChanged(object sender, EventArgs e)

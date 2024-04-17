@@ -17,11 +17,13 @@ namespace RealMadridDesktopApplication.Forms
     {
 
         Logger logger = LogManager.GetCurrentClassLogger();
+        private LoginPage loginPage;
 
-        public MainPage(AccessModifier accessModifier)
+        public MainPage(AccessModifier accessModifier, LoginPage loginPage)
         {
             logger.Info("Main Page openned");
             InitializeComponent();
+            this.loginPage = loginPage;
 
             if (accessModifier == AccessModifier.Admin)
             {
@@ -62,6 +64,15 @@ namespace RealMadridDesktopApplication.Forms
             ShowEmployeePage showEmployeePage = new ShowEmployeePage();
             showEmployeePage.Show();
             logger.Info("Window Show EMployee Page was opened");
+        }
+
+        private void buttonLogOut_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to log out?", "Log Out", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                Dispose();
+                loginPage.Show();
+            }
         }
     }
 }
