@@ -50,10 +50,20 @@ namespace RealMadridDesktopApplication.SQLConnection
             "       ON personal_details_id = personal_player_details";
 
         /// <summary>
-        /// Show Employee Page. We use this query to show employees from database.
+        /// Show Employee Page. We use this query to show employees from database if the access modifier of a user is admin.
+        /// Columns: ID, Name, Surname, Birthday, Phone Number, Login, Password.
         /// </summary>
-        public static string SelectEmployeesFromRealMadrid =
+        public static string SelectEmployeesFromRealMadridAdmin =
             "SELECT * FROM employee_of_real_madrid " +
+            "   JOIN personal_details " +
+            "       ON personal_details_id = personal_employee_details";
+
+        /// <summary>
+        /// Show Employee Page. We use this query to show employees from database if the access modifier of a user is coach. 
+        /// Columns: ID, Name, Surname, Birthday, Phone Number.
+        /// </summary>
+        public static string SelectEmployeesFromRealMadridRestricted =
+           "SELECT employee_id, name, surname, birthday, phone_number FROM employee_of_real_madrid " +
             "   JOIN personal_details " +
             "       ON personal_details_id = personal_employee_details";
     }

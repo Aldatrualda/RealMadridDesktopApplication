@@ -30,7 +30,6 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             employeeViewer = new DataGridView();
-            buttonBack = new Button();
             EmployeeID = new DataGridViewTextBoxColumn();
             FirstName = new DataGridViewTextBoxColumn();
             Surname = new DataGridViewTextBoxColumn();
@@ -38,6 +37,7 @@
             PhoneNumber = new DataGridViewTextBoxColumn();
             Login = new DataGridViewTextBoxColumn();
             Password = new DataGridViewTextBoxColumn();
+            buttonBack = new Button();
             ((System.ComponentModel.ISupportInitialize)employeeViewer).BeginInit();
             SuspendLayout();
             // 
@@ -60,16 +60,6 @@
             employeeViewer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             employeeViewer.Size = new Size(1182, 604);
             employeeViewer.TabIndex = 0;
-            // 
-            // buttonBack
-            // 
-            buttonBack.Location = new Point(13, 632);
-            buttonBack.Name = "buttonBack";
-            buttonBack.Size = new Size(90, 35);
-            buttonBack.TabIndex = 1;
-            buttonBack.Text = "Back";
-            buttonBack.UseVisualStyleBackColor = true;
-            buttonBack.Click += buttonBack_Click;
             // 
             // EmployeeID
             // 
@@ -121,6 +111,16 @@
             Password.HeaderText = "Password";
             Password.MinimumWidth = 6;
             Password.Name = "Password";
+            // 
+            // buttonBack
+            // 
+            buttonBack.Location = new Point(13, 632);
+            buttonBack.Name = "buttonBack";
+            buttonBack.Size = new Size(90, 35);
+            buttonBack.TabIndex = 1;
+            buttonBack.Text = "Back";
+            buttonBack.UseVisualStyleBackColor = true;
+            buttonBack.Click += buttonBack_Click;
             // 
             // ShowEmployeePage
             // 
