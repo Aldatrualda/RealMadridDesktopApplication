@@ -35,6 +35,7 @@
             buttonAddEmployee = new Button();
             buttonShowEmployees = new Button();
             labelRealMadridFoundation = new Label();
+            buttonLogOut = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
             SuspendLayout();
             // 
@@ -119,12 +120,26 @@
             labelRealMadridFoundation.TabIndex = 8;
             labelRealMadridFoundation.Text = "Real Madrid Foundation Program";
             // 
+            // buttonLogOut
+            // 
+            buttonLogOut.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonLogOut.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonLogOut.Font = new Font("Arial", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonLogOut.Location = new Point(776, 7);
+            buttonLogOut.Name = "buttonLogOut";
+            buttonLogOut.Size = new Size(99, 35);
+            buttonLogOut.TabIndex = 9;
+            buttonLogOut.Text = "Log Out";
+            buttonLogOut.UseVisualStyleBackColor = true;
+            buttonLogOut.Click += buttonLogOut_Click;
+            // 
             // MainPage
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(882, 503);
+            Controls.Add(buttonLogOut);
             Controls.Add(labelRealMadridFoundation);
             Controls.Add(buttonShowEmployees);
             Controls.Add(buttonAddEmployee);
@@ -151,5 +166,6 @@
         private Button buttonAddEmployee;
         private Button buttonShowEmployees;
         private Label labelRealMadridFoundation;
+        private Button buttonLogOut;
     }
 }
