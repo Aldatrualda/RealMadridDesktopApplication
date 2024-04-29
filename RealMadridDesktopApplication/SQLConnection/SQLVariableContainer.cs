@@ -42,14 +42,6 @@ namespace RealMadridDesktopApplication.SQLConnection
             $"WHERE login = '{login}' AND password = '{password}'";
 
         /// <summary>
-        /// Show player page. We use this query to show players from database.
-        /// </summary>
-        public static string SelectPlayersFromRealMadrid =
-            "SELECT * FROM player_of_real_madrid " +
-            "   JOIN personal_details " +
-            "       ON personal_details_id = personal_player_details";
-
-        /// <summary>
         /// Show Employee Page. We use this query to show employees from database if the access modifier of a user is admin.
         /// Columns: ID, Name, Surname, Birthday, Phone Number, Login, Password.
         /// </summary>
@@ -66,5 +58,18 @@ namespace RealMadridDesktopApplication.SQLConnection
            "SELECT employee_id, name, surname, birthday, phone_number FROM employee_of_real_madrid " +
             "   JOIN personal_details " +
             "       ON personal_details_id = personal_employee_details";
+
+        /// <summary>
+        /// Show Player Page. We use this query to get and filter players from database if it requires.
+        /// </summary>
+        /// <param name="nationality"></param>
+        /// <param name="location"></param>
+        /// <param name="age"></param>
+        public static string SelectFilteredPlayersFromRealMadrid(string nationality, string location, int age) =>
+            "SELECT * FROM player_of_real_madrid " +
+            "   JOIN personal_details " +
+            "       ON personal_details_id = personal_player_details " +
+            $"WHERE nationality LIKE '%{nationality}%' AND location LIKE '%{location}%' AND birthday > (" +
+            $"                                                                                         SELECT now() - interval '{age} years')";
     }
 }
