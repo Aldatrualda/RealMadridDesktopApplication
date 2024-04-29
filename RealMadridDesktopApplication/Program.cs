@@ -1,6 +1,7 @@
 using RealMadridDesktopApplication.Forms;
 using NLog;
 using Microsoft.Extensions.Configuration;
+using RealMadridDesktopApplication.Modules;
 
 namespace RealMadridDesktopApplication
 {
@@ -19,7 +20,8 @@ namespace RealMadridDesktopApplication
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            LoginPage loginPage = new LoginPage();  
+            LoginPage loginPage = new LoginPage();
+            ShowPlayerPage showEmployeePage = new ShowPlayerPage();
             Application.Run(loginPage);
             logger.Info("Program closed");
         }
