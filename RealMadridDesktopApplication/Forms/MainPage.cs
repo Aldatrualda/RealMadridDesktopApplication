@@ -65,7 +65,7 @@ namespace RealMadridDesktopApplication.Forms
         {
             ShowEmployeePage showEmployeePage = new ShowEmployeePage(accessModifier);
             showEmployeePage.Show();
-            logger.Info("Window Show EMployee Page was opened");
+            logger.Info("Window Show Employee Page was opened");
         }
 
         private void buttonLogOut_Click(object sender, EventArgs e)

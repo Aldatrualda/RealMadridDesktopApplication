@@ -63,8 +63,32 @@ namespace RealMadridDesktopApplication.SQLConnection
         /// Columns: ID, Name, Surname, Birthday, Phone Number.
         /// </summary>
         public static string SelectEmployeesFromRealMadridRestricted =
-           "SELECT employee_id, name, surname, birthday, phone_number FROM employee_of_real_madrid " +
+            "SELECT employee_id, name, surname, birthday, phone_number FROM employee_of_real_madrid " +
             "   JOIN personal_details " +
             "       ON personal_details_id = personal_employee_details";
+
+        /// <summary>
+        /// Show Employee Page. We use this query to delete an employee row from database by using ID.
+        /// </summary>
+        /// <param name="ID"></param>
+        public static string DeleteEmploeeFromRealMadridAdmin(int ID) =>
+            $"DELETE FROM employee_of_real_madrid " +
+            $"  WHERE employee_id = {ID}";
+
+        /// <summary>
+        /// Show Employee Page. We use this query to delete an employee personal details from database by using ID.
+        /// </summary>
+        /// <param name="ID"></param>
+        public static string DeletePersonalDetailsOfEmployee(int ID) =>
+            $"DELETE FROM personal_details " +
+            $"WHERE personal_details_id = {ID}";
+
+        /// <summary>
+        /// Show Employee Page. We use this query to get personal_employee_details from employee_of_real_madrid table to delete this row in the joining table.
+        /// </summary>
+        public static string SelectEmployeePersonalDetailsID(int ID) =>
+            $"SELECT personal_employee_details " +
+            $"   FROM employee_of_real_madrid " +
+            $"       WHERE employee_id = {ID}";
     }
 }
