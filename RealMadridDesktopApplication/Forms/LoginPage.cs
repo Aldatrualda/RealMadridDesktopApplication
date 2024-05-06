@@ -49,7 +49,10 @@ namespace RealMadridDesktopApplication
             using (NpgsqlCommand command = new NpgsqlCommand(countQuery, connection))
             {
                 NpgsqlDataReader dataReader = command.ExecuteReader();
-                employeeLogin = dataReader.Read();
+                if (dataReader.Rows > 0)
+                {
+                    employeeLogin = dataReader.Read();
+                }
             }
 
             if (employeeLogin)
@@ -60,7 +63,7 @@ namespace RealMadridDesktopApplication
                     EmptyBoxes();
                     Hide();
                 }
-                else
+                else if (GetAccessModifierOfAccount(textBoxLogin.Text, textBoxPassword.Text) == AccessModifier.Coach)
                 {
                     new MainPage(AccessModifier.Coach, this).Show();
                     EmptyBoxes();
