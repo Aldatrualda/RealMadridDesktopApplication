@@ -76,5 +76,10 @@ namespace RealMadridDesktopApplication.Forms
                 loginPage.Show();
             }
         }
+
+        private void MainPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            loginPage.Dispose();
+        }
     }
 }

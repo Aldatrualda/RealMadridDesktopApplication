@@ -23,6 +23,15 @@ namespace RealMadridDesktopApplication.Forms
         {
             InitializeComponent();
             this.accessModifier = accessModifier;
+            if (accessModifier == AccessModifier.Admin)
+            {
+                Show();
+            }
+            else if (accessModifier == AccessModifier.Coach)
+            {
+                RestrictedAccess();
+                Show();
+            }
         }
 
         private void ShowEmployeesFromDataBase(AccessModifier accessModifier)
@@ -65,21 +74,30 @@ namespace RealMadridDesktopApplication.Forms
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"Are you sure you want to delete {textBoxFirstName.Text}?", "Delete Employee", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if (!(textBoxID.Text.Equals("") && textBoxFirstName.Text.Equals("")))
             {
-                try
+                if (MessageBox.Show($"Are you sure you want to delete {textBoxFirstName.Text}?", "Delete Employee", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    using (NpgsqlConnection connection = new NpgsqlConnection(SQLVariableContainer.ConnectionToSQL))
+                    try
                     {
-                        connection.Open();
-                        DeleteEmployee(connection, int.Parse(textBoxID.Text), GetPersonalEmployeeDetailsId(connection, textBoxID.Text));
+                        using (NpgsqlConnection connection = new NpgsqlConnection(SQLVariableContainer.ConnectionToSQL))
+                        {
+                            connection.Open();
+                            DeleteEmployee(connection, int.Parse(textBoxID.Text), GetPersonalEmployeeDetailsId(connection, textBoxID.Text));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Info($"An error occurred: {ex}");
+                        MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
-                {
-                    logger.Info($"An error occurred: {ex}");
-                    MessageBox.Show("Something went wrong", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                buttonClean_Click(sender, e);
+                textBoxID.Focus();
+                MessageBox.Show("Fields ID and First Name are required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -141,9 +159,31 @@ namespace RealMadridDesktopApplication.Forms
             }
         }
 
+        /// <summary>
+        /// Using the method for coach.
+        /// </summary>
+        private void RestrictedAccess()
+        {
+            textBoxID.Visible = false;
+            textBoxFirstName.Visible = false;
+            labelFirstName.Visible = false;
+            labelID.Visible = false;
+            buttonDelete.Visible = false;
+            buttonClean.Visible = false;
+            buttonRefresh.Location = new System.Drawing.Point(1068, 632);
+            buttonRefresh.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;  
+            employeeViewer.Dock = DockStyle.Top;
+        }
+
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             ShowEmployeesFromDataBase(accessModifier);
+        }
+
+        private void buttonClean_Click(object sender, EventArgs e)
+        {
+            textBoxID.Clear();
+            textBoxFirstName.Clear();
         }
     }
 }
