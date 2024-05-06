@@ -1,6 +1,7 @@
 using RealMadridDesktopApplication.Forms;
 using NLog;
 using Microsoft.Extensions.Configuration;
+using RealMadridDesktopApplication.Modules;
 
 namespace RealMadridDesktopApplication
 {
