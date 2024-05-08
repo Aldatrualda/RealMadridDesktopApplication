@@ -21,7 +21,6 @@ namespace RealMadridDesktopApplication
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             LoginPage loginPage = new LoginPage();
-            ShowPlayerPage showEmployeePage = new ShowPlayerPage();
             Application.Run(loginPage);
             logger.Info("Program closed");
         }

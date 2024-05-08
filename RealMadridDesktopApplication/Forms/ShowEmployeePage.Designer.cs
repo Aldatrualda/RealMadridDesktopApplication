@@ -38,6 +38,13 @@
             Login = new DataGridViewTextBoxColumn();
             Password = new DataGridViewTextBoxColumn();
             buttonBack = new Button();
+            textBoxID = new TextBox();
+            textBoxFirstName = new TextBox();
+            buttonDelete = new Button();
+            labelID = new Label();
+            labelFirstName = new Label();
+            buttonRefresh = new Button();
+            buttonClean = new Button();
             ((System.ComponentModel.ISupportInitialize)employeeViewer).BeginInit();
             SuspendLayout();
             // 
@@ -48,17 +55,17 @@
             employeeViewer.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
             employeeViewer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             employeeViewer.Columns.AddRange(new DataGridViewColumn[] { EmployeeID, FirstName, Surname, Birthday, PhoneNumber, Login, Password });
-            employeeViewer.Dock = DockStyle.Top;
             employeeViewer.GridColor = Color.White;
-            employeeViewer.Location = new Point(0, 0);
+            employeeViewer.Location = new Point(0, 90);
             employeeViewer.Margin = new Padding(4);
             employeeViewer.MaximumSize = new Size(1920, 1080);
-            employeeViewer.MinimumSize = new Size(1141, 604);
+            employeeViewer.MinimumSize = new Size(500, 250);
             employeeViewer.Name = "employeeViewer";
+            employeeViewer.ReadOnly = true;
             employeeViewer.RowHeadersWidth = 51;
             employeeViewer.RowTemplate.Height = 29;
             employeeViewer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            employeeViewer.Size = new Size(1182, 604);
+            employeeViewer.Size = new Size(1182, 515);
             employeeViewer.TabIndex = 0;
             // 
             // EmployeeID
@@ -67,6 +74,7 @@
             EmployeeID.HeaderText = "ID";
             EmployeeID.MinimumWidth = 6;
             EmployeeID.Name = "EmployeeID";
+            EmployeeID.ReadOnly = true;
             // 
             // FirstName
             // 
@@ -74,6 +82,7 @@
             FirstName.HeaderText = "First Name";
             FirstName.MinimumWidth = 6;
             FirstName.Name = "FirstName";
+            FirstName.ReadOnly = true;
             // 
             // Surname
             // 
@@ -81,6 +90,7 @@
             Surname.HeaderText = "Surname";
             Surname.MinimumWidth = 6;
             Surname.Name = "Surname";
+            Surname.ReadOnly = true;
             // 
             // Birthday
             // 
@@ -90,6 +100,7 @@
             Birthday.HeaderText = "Birthday";
             Birthday.MinimumWidth = 6;
             Birthday.Name = "Birthday";
+            Birthday.ReadOnly = true;
             // 
             // PhoneNumber
             // 
@@ -97,6 +108,7 @@
             PhoneNumber.HeaderText = "Phone Number";
             PhoneNumber.MinimumWidth = 6;
             PhoneNumber.Name = "PhoneNumber";
+            PhoneNumber.ReadOnly = true;
             // 
             // Login
             // 
@@ -104,6 +116,7 @@
             Login.HeaderText = "Login";
             Login.MinimumWidth = 6;
             Login.Name = "Login";
+            Login.ReadOnly = true;
             // 
             // Password
             // 
@@ -111,9 +124,11 @@
             Password.HeaderText = "Password";
             Password.MinimumWidth = 6;
             Password.Name = "Password";
+            Password.ReadOnly = true;
             // 
             // buttonBack
             // 
+            buttonBack.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             buttonBack.Location = new Point(13, 632);
             buttonBack.Name = "buttonBack";
             buttonBack.Size = new Size(90, 35);
@@ -122,6 +137,84 @@
             buttonBack.UseVisualStyleBackColor = true;
             buttonBack.Click += buttonBack_Click;
             // 
+            // textBoxID
+            // 
+            textBoxID.Location = new Point(13, 32);
+            textBoxID.MaximumSize = new Size(160, 30);
+            textBoxID.MaxLength = 100;
+            textBoxID.MinimumSize = new Size(160, 30);
+            textBoxID.Name = "textBoxID";
+            textBoxID.Size = new Size(160, 30);
+            textBoxID.TabIndex = 2;
+            // 
+            // textBoxFirstName
+            // 
+            textBoxFirstName.Location = new Point(223, 32);
+            textBoxFirstName.MaximumSize = new Size(160, 30);
+            textBoxFirstName.MaxLength = 15;
+            textBoxFirstName.MinimumSize = new Size(160, 30);
+            textBoxFirstName.Name = "textBoxFirstName";
+            textBoxFirstName.Size = new Size(160, 30);
+            textBoxFirstName.TabIndex = 3;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonDelete.Location = new Point(427, 30);
+            buttonDelete.MaximumSize = new Size(120, 65);
+            buttonDelete.MinimumSize = new Size(90, 35);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(90, 35);
+            buttonDelete.TabIndex = 4;
+            buttonDelete.Text = "Delete";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
+            // labelID
+            // 
+            labelID.AutoSize = true;
+            labelID.Font = new Font("Arial", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            labelID.Location = new Point(13, 13);
+            labelID.Name = "labelID";
+            labelID.Size = new Size(20, 16);
+            labelID.TabIndex = 5;
+            labelID.Text = "ID";
+            // 
+            // labelFirstName
+            // 
+            labelFirstName.AutoSize = true;
+            labelFirstName.Font = new Font("Arial", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            labelFirstName.Location = new Point(223, 13);
+            labelFirstName.Name = "labelFirstName";
+            labelFirstName.Size = new Size(75, 16);
+            labelFirstName.TabIndex = 6;
+            labelFirstName.Text = "First Name";
+            // 
+            // buttonRefresh
+            // 
+            buttonRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonRefresh.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonRefresh.Location = new Point(1068, 30);
+            buttonRefresh.MaximumSize = new Size(140, 70);
+            buttonRefresh.MinimumSize = new Size(105, 35);
+            buttonRefresh.Name = "buttonRefresh";
+            buttonRefresh.Size = new Size(105, 35);
+            buttonRefresh.TabIndex = 7;
+            buttonRefresh.Text = "Refresh";
+            buttonRefresh.UseVisualStyleBackColor = true;
+            buttonRefresh.Click += buttonRefresh_Click;
+            // 
+            // buttonClean
+            // 
+            buttonClean.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            buttonClean.Location = new Point(533, 30);
+            buttonClean.Name = "buttonClean";
+            buttonClean.Size = new Size(90, 35);
+            buttonClean.TabIndex = 8;
+            buttonClean.Text = "Clean";
+            buttonClean.UseVisualStyleBackColor = true;
+            buttonClean.Click += buttonClean_Click;
+            // 
             // ShowEmployeePage
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
@@ -129,6 +222,13 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
             ClientSize = new Size(1182, 693);
+            Controls.Add(buttonClean);
+            Controls.Add(buttonRefresh);
+            Controls.Add(labelFirstName);
+            Controls.Add(labelID);
+            Controls.Add(buttonDelete);
+            Controls.Add(textBoxFirstName);
+            Controls.Add(textBoxID);
             Controls.Add(buttonBack);
             Controls.Add(employeeViewer);
             Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -140,6 +240,7 @@
             Text = "Show Employee Page";
             ((System.ComponentModel.ISupportInitialize)employeeViewer).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -153,5 +254,12 @@
         private DataGridViewTextBoxColumn PhoneNumber;
         private DataGridViewTextBoxColumn Login;
         private DataGridViewTextBoxColumn Password;
+        private TextBox textBoxID;
+        private TextBox textBoxFirstName;
+        private Button buttonDelete;
+        private Label labelID;
+        private Label labelFirstName;
+        private Button buttonRefresh;
+        private Button buttonClean;
     }
 }

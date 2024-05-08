@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             playerViewer = new DataGridView();
             PlayerID = new DataGridViewTextBoxColumn();
             FirstName = new DataGridViewTextBoxColumn();
@@ -61,7 +61,7 @@
             playerViewer.Columns.AddRange(new DataGridViewColumn[] { PlayerID, FirstName, Surname, Birthday, Nationality, PhoneNumber, Address, Location });
             playerViewer.Cursor = Cursors.Hand;
             playerViewer.GridColor = Color.White;
-            playerViewer.Location = new Point(-2, 109);
+            playerViewer.Location = new Point(0, 90);
             playerViewer.Margin = new Padding(4);
             playerViewer.MaximumSize = new Size(1920, 1080);
             playerViewer.MinimumSize = new Size(500, 250);
@@ -75,8 +75,8 @@
             // PlayerID
             // 
             PlayerID.DataPropertyName = "player_id";
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            PlayerID.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            PlayerID.DefaultCellStyle = dataGridViewCellStyle1;
             PlayerID.HeaderText = "ID";
             PlayerID.MinimumWidth = 6;
             PlayerID.Name = "PlayerID";
@@ -84,8 +84,8 @@
             // FirstName
             // 
             FirstName.DataPropertyName = "name";
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            FirstName.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            FirstName.DefaultCellStyle = dataGridViewCellStyle2;
             FirstName.HeaderText = "First Name";
             FirstName.MinimumWidth = 6;
             FirstName.Name = "FirstName";
@@ -100,8 +100,8 @@
             // Birthday
             // 
             Birthday.DataPropertyName = "birthday";
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Birthday.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Birthday.DefaultCellStyle = dataGridViewCellStyle3;
             Birthday.HeaderText = "Birthday";
             Birthday.MinimumWidth = 6;
             Birthday.Name = "Birthday";

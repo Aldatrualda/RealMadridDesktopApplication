@@ -137,6 +137,7 @@
             // 
             AutoScaleDimensions = new SizeF(12F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.White;
             ClientSize = new Size(882, 503);
             Controls.Add(buttonLogOut);
@@ -154,6 +155,7 @@
             Padding = new Padding(4);
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Page";
+            FormClosed += MainPage_FormClosed;
             ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
             ResumeLayout(false);
         }
